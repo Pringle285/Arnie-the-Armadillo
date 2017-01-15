@@ -14,10 +14,22 @@ public class EnemyBehaviour : MonoBehaviour {
 	public float m_patrolSpeed = 5f;
 	public float m_chaseSpeed = 5f;
 
+	[Tooltip("The max and min rotation from mid-point - used for Stationary With Rotation patrol type")]
+	public float m_maxAngleOfRotation = 25f;
+	public float m_patrolRotationSpeed = 2f;
+
 	#endregion
 
+	#region Patrol Data
 	private Transform[] m_patrolArr;
+	private int m_currentPatrolIndex = 0;
 
+	//Only used for ping-pong patroltype
+	private int m_indexIncrement = 1;
+	private float m_rotationMidPoint;
+	#endregion
+
+	#region State Enums
 	public enum State
 	{
 		Patrolling,
@@ -35,24 +47,19 @@ public class EnemyBehaviour : MonoBehaviour {
 		StationaryRotating
 	};
 	public PatrolType m_patrolType;
+	#endregion
 
 	// Use this for initialization
 	void Start ()
 	{
-		m_player = GameObject.FindGameObjectWithTag ("Player");
-		m_rb = this.gameObject.GetComponent<Rigidbody> ();
+		m_rotationMidPoint = this.transform.rotation.eulerAngles.y;
 
 		//Parent Patrol node must have the name "[Enemy_Instance_Name]_Patrol"
-		//m_patrolArr = GameObject.Find (this.gameObject.name + "_Patrol").GetComponentsInChildren<Transform> ();
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		/*Maybe move to fixed update if it's causing issues
-		if (PlayerInSight ())
-			m_state = State.Chasing;
-		*/
+		ImportPatrolNodes();
+
+		m_player = GameObject.FindGameObjectWithTag ("Player");
+		
+		m_rb = this.gameObject.GetComponent<Rigidbody> ();
 	}
 
 	void FixedUpdate()
@@ -60,24 +67,64 @@ public class EnemyBehaviour : MonoBehaviour {
 		switch (m_state)
 		{
 		case State.Chasing:
-			
+			if (!PlayerInSight ())
+				m_state = State.Searching;
+			else
+				ChasePlayer ();
+
 			break;
 
 		case State.Searching:
-			
+
+			//Fuck knows, this could be super complex or super simple moving to random valid positions - need input from you guys!
+
 			break;
 
 		case State.ReturningToPatrol:
-			
+			if (PlayerInSight ())
+				m_state = State.Chasing;
+			else
+			{
+				//find nearest patrol point (if not already found)
+				//return to that point (nav-mesh or translation?)
+
+			}
+
+
 			break;
 
 		case State.Patrolling:
-			//PushTo (new Vector3 (-24, -4, 1), m_patrolSpeed);
-			TranslateTowards(new Vector3 (0,2,8), m_patrolSpeed, true);
+
+			if (PlayerInSight ())
+				m_state = State.Chasing;
+			else
+			{
+				switch(m_patrolType)
+				{
+				case PatrolType.Circular:
+					// A -> B -> C -> A -> B -> C ...
+					PatrolCircular();
+					break;
+				case PatrolType.PingPong:
+					// A -> B -> C -> B -> A...
+					PatrolPingPong();
+					break;
+				case PatrolType.Stationary:
+					//Does anything actually need to happen here?
+					//Other than an idle animation of course
+
+					break;
+				case PatrolType.StationaryRotating:
+					//Rotate between theta +- alpha
+					PatrolStationaryRotating();
+					break;
+				}
+			}
 			break;
 		}
 	}
 
+	//Check if in player is in LOS
 	bool PlayerInSight()
 	{
 		if(Vector3.Angle(this.transform.forward, m_player.transform.position) <= m_fov)
@@ -93,6 +140,17 @@ public class EnemyBehaviour : MonoBehaviour {
 		return false;
 	}
 
+	void ImportPatrolNodes()
+	{
+		m_patrolArr = GameObject.Find (this.gameObject.name + "_Patrol").GetComponentsInChildren<Transform> ();
+
+		if (m_patrolArr.Length == 0)
+			Debug.LogError ("No Patrol Path Found");
+		else
+			Debug.Log (m_patrolArr.ToString ());
+	}
+
+	#region MovementMethods
 	void ChasePlayer()
 	{
 		//Use NavMesh & NavMeshAgent?
@@ -100,7 +158,6 @@ public class EnemyBehaviour : MonoBehaviour {
 
 	void PushTo(Vector3 _target, float _speed)
 	{
-		m_rb.
 
 		m_rb.AddForce ((_target - this.transform.position).normalized * _speed);
 		print ("Yep");
@@ -113,11 +170,60 @@ public class EnemyBehaviour : MonoBehaviour {
 
 		this.transform.position = Vector3.MoveTowards (this.transform.position, _target, _speed * Time.deltaTime);
 	}
+    #endregion
+
+	/*
+	 * SHOULD I BE COMPARING JUST THE XY VALUES FOR PATROL NODES?
+	 */
+
 
 	#region PatrolMethods
 	void PatrolCircular()
 	{
-		
+		if(this.transform.position == m_patrolArr[m_currentPatrolIndex].position)
+		{
+			//Assign index to next valid patrol point's index
+
+			if (m_currentPatrolIndex == m_patrolArr.Length - 1)
+				m_currentPatrolIndex = 0;
+			else
+				m_currentPatrolIndex++;
+		}
+
+		//Move to patrol point
+
+		//Stuff here
+	}
+	void PatrolPingPong()
+	{
+		if (this.transform.position == m_patrolArr [m_currentPatrolIndex].position) 
+		{
+			if (m_currentPatrolIndex == 0 && m_indexIncrement == -1)
+				m_indexIncrement = 1;
+			else if (m_currentPatrolIndex == m_patrolArr.Length - 1 && m_indexIncrement == 1)
+				m_indexIncrement = -1;
+
+			m_currentPatrolIndex += m_indexIncrement;
+		}
+
+		//Move to patrol point
+
+		//Stuff here
+	}
+	//The initial forward vector for the enemy is the mid-point for rotation
+	void PatrolStationaryRotating()
+	{
+		if(this.transform.rotation.y == m_rotationMidPoint + m_maxAngleOfRotation || this.transform.rotation.y == m_rotationMidPoint - m_maxAngleOfRotation)
+		{
+			//Indicates direction of rotation
+			if (m_indexIncrement == 1)
+				m_indexIncrement = -1;
+			else
+				m_indexIncrement = 1;
+		}
+
+		//Index increment makes the direction of rotation positive or negative
+		this.transform.RotateAround (this.transform.position, Vector3.up, m_patrolRotationSpeed * m_indexIncrement);
 	}
 	#endregion
 }
