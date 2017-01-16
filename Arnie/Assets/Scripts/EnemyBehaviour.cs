@@ -6,6 +6,10 @@ public class EnemyBehaviour : MonoBehaviour {
 	private GameObject m_player;
 	private Rigidbody m_rb;
 
+	// Used for more accurate time measuring, incrementing by deltaTime each frame
+	//Unity doesn't provide any other alternative in ms
+	private float m_timer = 0f;
+
 	#region Values that will need adjusting
 
 	public float m_fov = 60f;
@@ -64,6 +68,8 @@ public class EnemyBehaviour : MonoBehaviour {
 
 	void FixedUpdate()
 	{
+		m_timer += Time.deltaTime;
+
 		switch (m_state)
 		{
 		case State.Chasing:
@@ -154,6 +160,7 @@ public class EnemyBehaviour : MonoBehaviour {
 	void ChasePlayer()
 	{
 		//Use NavMesh & NavMeshAgent?
+		this.gameObject.GetComponent<NavMeshAgent>().
 	}
 
 	void PushTo(Vector3 _target, float _speed)
@@ -175,7 +182,6 @@ public class EnemyBehaviour : MonoBehaviour {
 	/*
 	 * SHOULD I BE COMPARING JUST THE XY VALUES FOR PATROL NODES?
 	 */
-
 
 	#region PatrolMethods
 	void PatrolCircular()
@@ -213,17 +219,11 @@ public class EnemyBehaviour : MonoBehaviour {
 	//The initial forward vector for the enemy is the mid-point for rotation
 	void PatrolStationaryRotating()
 	{
-		if(this.transform.rotation.y == m_rotationMidPoint + m_maxAngleOfRotation || this.transform.rotation.y == m_rotationMidPoint - m_maxAngleOfRotation)
-		{
-			//Indicates direction of rotation
-			if (m_indexIncrement == 1)
-				m_indexIncrement = -1;
-			else
-				m_indexIncrement = 1;
-		}
+		Vector3 newRotation = this.transform.rotation.eulerAngles;
 
-		//Index increment makes the direction of rotation positive or negative
-		this.transform.RotateAround (this.transform.position, Vector3.up, m_patrolRotationSpeed * m_indexIncrement);
+		newRotation.y = m_rotationMidPoint + (m_maxAngleOfRotation * Mathf.Sin (m_timer * m_patrolRotationSpeed));
+
+		this.transform.rotation = Quaternion.Euler(newRotation);
 	}
 	#endregion
 }
