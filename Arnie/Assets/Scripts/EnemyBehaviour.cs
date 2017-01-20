@@ -160,7 +160,7 @@ public class EnemyBehaviour : MonoBehaviour {
 	void ChasePlayer()
 	{
 		//Use NavMesh & NavMeshAgent?
-		this.gameObject.GetComponent<NavMeshAgent>().
+		//this.gameObject.GetComponent<NavMeshAgent>().
 	}
 
 	void PushTo(Vector3 _target, float _speed)
