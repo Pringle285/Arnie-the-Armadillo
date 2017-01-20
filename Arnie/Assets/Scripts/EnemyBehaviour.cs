@@ -5,9 +5,10 @@ public class EnemyBehaviour : MonoBehaviour {
 
 	private GameObject m_player;
 	private Rigidbody m_rb;
+	private NavMeshAgent m_navMeshAgent;
 
 	// Used for more accurate time measuring, incrementing by deltaTime each frame
-	//Unity doesn't provide any other alternative in ms
+	//Unity doesn't provide any other accurate alternative in ms
 	private float m_timer = 0f;
 
 	#region Values that will need adjusting
@@ -53,6 +54,8 @@ public class EnemyBehaviour : MonoBehaviour {
 	public PatrolType m_patrolType;
 	#endregion
 
+	private const float MIN_PATROL_DIST = 1f;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -64,6 +67,8 @@ public class EnemyBehaviour : MonoBehaviour {
 		m_player = GameObject.FindGameObjectWithTag ("Player");
 		
 		m_rb = this.gameObject.GetComponent<Rigidbody> ();
+
+		m_navMeshAgent = this.gameObject.GetComponent<NavMeshAgent> ();
 	}
 
 	void FixedUpdate()
@@ -186,10 +191,9 @@ public class EnemyBehaviour : MonoBehaviour {
 	#region PatrolMethods
 	void PatrolCircular()
 	{
-		if(this.transform.position == m_patrolArr[m_currentPatrolIndex].position)
+		if(AtPatrolPoint(this.transform.position, m_patrolArr[m_currentPatrolIndex].position))
 		{
 			//Assign index to next valid patrol point's index
-
 			if (m_currentPatrolIndex == m_patrolArr.Length - 1)
 				m_currentPatrolIndex = 0;
 			else
@@ -197,12 +201,13 @@ public class EnemyBehaviour : MonoBehaviour {
 		}
 
 		//Move to patrol point
+		if(m_navMeshAgent.destination != m_patrolArr[m_currentPatrolIndex].position)
+			m_navMeshAgent.SetDestination(m_patrolArr[m_currentPatrolIndex].position);
 
-		//Stuff here
 	}
 	void PatrolPingPong()
 	{
-		if (this.transform.position == m_patrolArr [m_currentPatrolIndex].position) 
+		if (AtPatrolPoint(this.transform.position, m_patrolArr[m_currentPatrolIndex].position)) 
 		{
 			if (m_currentPatrolIndex == 0 && m_indexIncrement == -1)
 				m_indexIncrement = 1;
@@ -213,8 +218,9 @@ public class EnemyBehaviour : MonoBehaviour {
 		}
 
 		//Move to patrol point
+		if(m_navMeshAgent.destination != m_patrolArr[m_currentPatrolIndex].position)
+			m_navMeshAgent.SetDestination(m_patrolArr[m_currentPatrolIndex].position);
 
-		//Stuff here
 	}
 	//The initial forward vector for the enemy is the mid-point for rotation
 	void PatrolStationaryRotating()
@@ -224,6 +230,14 @@ public class EnemyBehaviour : MonoBehaviour {
 		newRotation.y = m_rotationMidPoint + (m_maxAngleOfRotation * Mathf.Sin (m_timer * m_patrolRotationSpeed));
 
 		this.transform.rotation = Quaternion.Euler(newRotation);
+	}
+
+	bool AtPatrolPoint(Vector3 _a, Vector3 _b)
+	{
+		if (Vector2.Distance (new Vector2 (_a.x, _a.z), new Vector2 (_b.x, _b.z)) < MIN_PATROL_DIST)
+			return true;
+		else
+			return false;
 	}
 	#endregion
 }
