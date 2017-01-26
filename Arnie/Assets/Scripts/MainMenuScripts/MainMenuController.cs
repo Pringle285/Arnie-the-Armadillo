@@ -19,6 +19,7 @@ public class MainMenuController : MonoBehaviour {
 		}
 	}
 
+	//changing panels on the main menu depending on the buttons clicked
 	public void OptionsPanel (bool clicked)
 	{
 		ChangePanel (mainMenu, optionsMenu, clicked); 
@@ -28,11 +29,13 @@ public class MainMenuController : MonoBehaviour {
 		ChangePanel (mainMenu, levelSelectMenu, clicked);
 	}
 
+	//exit the game
 	public void Exit ()
 	{
 		Application.Quit(); 
 	}
 
+	//play from the first level
 	public void Play ()
 	{
 		SceneManager.LoadScene ("Level1");
