@@ -21,11 +21,12 @@ public class Movement : MonoBehaviour {
 
 		if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
 		{
-			rb.AddForce (Vector3.forward * moveSpeed);
+			//Up is forward right now, may need to change
+			rb.AddForce (this.transform.up * moveSpeed);
 		}
 		if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
 		{
-			rb.AddForce (Vector3.back * (moveSpeed / 2));
+			rb.AddForce (-this.transform.up * (moveSpeed / 2));
 		}
 		//rb.AddForce (movement * moveSpeed);
 

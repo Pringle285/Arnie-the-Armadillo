@@ -138,10 +138,10 @@ public class EnemyBehaviour : MonoBehaviour {
 	//Check if in player is in LOS
 	bool PlayerInSight()
 	{
-		if(Vector3.Angle(this.transform.forward, m_player.transform.position) <= m_fov)
+		if(Vector3.Angle(this.transform.forward, m_player.transform.position - this.transform.position) <= m_fov / 2)
 		{
 			RaycastHit hit;
-			if(Physics.Raycast(this.transform.position,m_player.transform.position, out hit, m_sightDist))
+			if(Physics.Raycast(this.transform.position,m_player.transform.position - this.transform.position, out hit, m_sightDist))
 			{
 				if (hit.collider.name == m_player.name)
 					return true;
@@ -157,15 +157,15 @@ public class EnemyBehaviour : MonoBehaviour {
 
 		if (m_patrolArr.Length == 0)
 			Debug.LogError ("No Patrol Path Found");
-		else
-			Debug.Log (m_patrolArr.ToString ());
+
 	}
 
 	#region MovementMethods
 	void ChasePlayer()
 	{
-		//Use NavMesh & NavMeshAgent?
-		//this.gameObject.GetComponent<NavMeshAgent>().
+		//Limits Pathing to every 5th frame
+		if(Time.frameCount % 5 == 0)
+			m_navMeshAgent.SetDestination (m_player.transform.position);
 	}
 
 	void PushTo(Vector3 _target, float _speed)
@@ -183,10 +183,6 @@ public class EnemyBehaviour : MonoBehaviour {
 		this.transform.position = Vector3.MoveTowards (this.transform.position, _target, _speed * Time.deltaTime);
 	}
     #endregion
-
-	/*
-	 * SHOULD I BE COMPARING JUST THE XY VALUES FOR PATROL NODES?
-	 */
 
 	#region PatrolMethods
 	void PatrolCircular()
