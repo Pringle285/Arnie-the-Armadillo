@@ -1,0 +1,98 @@
+#define ROW_NUMBER 40
+#define COLUMN_NUMBER 20
+#define TRIANGLE_SIZE_SCALE 0.15
+
+#include <affine_transform>
+#include <perlin>
+#include <worley>
+
+//Model Parameters
+parameter float timeScale = 0.0625;
+parameter float colourVarianceScale = 2 : range(0, 4);
+parameter float minVal = 0.25  : range(0.0, 1.0);
+parameter float maxVal = 1.75 : range(1.0, 2.0);
+parameter float alphaConst = 1 : range(0, 1);
+parameter bool pushRadialToCenter = true;
+
+parameter float r = 1 : range(0,1);
+parameter float g = 1 : range(0,1);
+parameter float b = 1 : range(0,1);
+
+//Image Parameters
+parameter float brightness = 1 : range(0,1);
+
+glsl vec4 VertexShader(out vec3 _fragColour, int _vertexIndex, float _time)
+{
+	vec2 VertexPositionMat[3] = vec2[3]
+	(	
+		vec2(-1,1),
+		vec2(1,1),
+		vec2(0,0)
+	);
+		
+	vec2 vertexPosition;
+	
+	if(_vertexIndex % 3 == 0)
+		vertexPosition = VertexPositionMat[2];
+	else if(_vertexIndex % 2 == 0)
+		vertexPosition = VertexPositionMat[1];
+	else
+		vertexPosition = VertexPositionMat[0];
+	
+	vertexPosition *= TRIANGLE_SIZE_SCALE;
+	
+	int triangleNumber = _vertexIndex / 3;
+	
+	//Flipping every other triangle and moving it into the same row again
+	if(triangleNumber % 2 == 0)
+	{
+		//vertexPosition = scale(vertexPosition, -1);
+		vertexPosition = -vertexPosition;
+		//vertexPosition = translate(vertexPosition, vec2(0,TRIANGLE_SIZE_SCALE));
+	}
+	//Moves to correct position on screen
+	vertexPosition = translate(vertexPosition, vec2(-1 + ( (triangleNumber % ROW_NUMBER) * TRIANGLE_SIZE_SCALE), -1 + (triangleNumber / ROW_NUMBER * TRIANGLE_SIZE_SCALE)));
+	
+	//Generating noise multiplyers
+	float pNoiseMult = perlinNoise( vec3(triangleNumber, triangleNumber, _time * timeScale) );
+	vec2 wNoiseMult = worleyNoise(vec2(pNoiseMult, pNoiseMult));
+	vec2 fNoiseMult = wNoiseMult * colourVarianceScale;
+	
+	if(pushRadialToCenter)
+		if(fNoiseMult.x < minVal || fNoiseMult.x > maxVal)
+			fNoiseMult.x = 1;
+	
+	
+	_fragColour = vec3(r,g,b) * clamp(fNoiseMult.x, minVal, maxVal);
+	
+	return vec4(vertexPosition,0,1);
+}
+
+glsl vec4 FragShader(in vec3 _fragColour)
+{
+	return vec4(_fragColour, alphaConst);
+}
+
+model animation Background:
+	fragment_data(vec3),
+	vertex_animated(VertexShader,  triangles, COLUMN_NUMBER * ROW_NUMBER * 3),
+	dimensions(4096, 4096),
+	fragment(FragShader),
+	multisample(32),
+	wireframe(false),
+	map(clamp);
+	
+glsl vec4 Col(vec2 pos)
+{
+	vec4 outCol = texture(Background, pos);
+	
+	outCol.xyz *= brightness;
+	
+	return outCol;
+}
+	
+image Test = glsl(Col, 4096, 4096);
+	
+	export png(Background, "shot.png");
+	export png_sequence(Background, "Sequence/test_?.png", 10, 2); //Exports image every 100ms for 2 seconds
+	
