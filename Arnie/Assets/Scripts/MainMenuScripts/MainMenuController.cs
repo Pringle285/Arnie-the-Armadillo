@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour {
 
-	public Transform mainMenu, optionsMenu, levelSelectMenu; 
+	public Transform m_mainMenu, m_optionsMenu, m_levelSelectMenu; 
 
 	//panel changing function
 	public void ChangePanel(Transform panel1, Transform panel2, bool clicked)
@@ -22,11 +22,11 @@ public class MainMenuController : MonoBehaviour {
 	//changing panels on the main menu depending on the buttons clicked
 	public void OptionsPanel (bool clicked)
 	{
-		ChangePanel (mainMenu, optionsMenu, clicked); 
+		ChangePanel (m_mainMenu, m_optionsMenu, clicked); 
 	}
 	public void LevelSelectPanel (bool clicked)
 	{
-		ChangePanel (mainMenu, levelSelectMenu, clicked);
+		ChangePanel (m_mainMenu, m_levelSelectMenu, clicked);
 	}
 
 	//exit the game
