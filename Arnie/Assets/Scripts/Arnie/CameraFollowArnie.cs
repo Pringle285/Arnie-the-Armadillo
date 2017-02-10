@@ -12,6 +12,8 @@ public class CameraFollowArnie : MonoBehaviour {
 
 	private Vector3 m_tempVec = Vector3.zero;
 
+	public Options m_optionsScript; 
+
 	//private Transform targetTrans = new Transform();
 
 	private float m_xRot;
@@ -20,6 +22,8 @@ public class CameraFollowArnie : MonoBehaviour {
 	{
 		m_cameraTarget = GameObject.Find ("CameraTarget");
 		m_player = GameObject.FindGameObjectWithTag ("Player");
+
+		m_optionsScript = GameObject.Find("OptionsController").GetComponent<Options> ();
 
 		m_cameraTarget.transform.position = this.transform.position;
 
@@ -35,7 +39,9 @@ public class CameraFollowArnie : MonoBehaviour {
 	{
 		//Camera with mouse control
 		//Menu could super easily include a sensitivity slider in options
-		RotateAroundArnie (Input.GetAxis ("Mouse X") * 250f);
+		//RotateAroundArnie (Input.GetAxis ("Mouse X") * 250f);
+		//rotation using menu slider sensitivity
+		RotateAroundArnie (Input.GetAxis ("Mouse X") * m_optionsScript.m_sensitivity.value);
 	}
 
 	void LateUpdate ()
@@ -62,6 +68,6 @@ public class CameraFollowArnie : MonoBehaviour {
 	{
 		this.transform.RotateAround (m_player.transform.position, Vector3.up, _angle * Time.deltaTime);
 
-		m_cameraTarget.transform.RotateAround (m_player.transform.position, Vector3.up, _angle * Time.deltaTime);
+		m_cameraTarget.transform.RotateAround (m_player.transform.position, Vector3.up, _angle * Time.deltaTime );
 	}
 }

@@ -38,7 +38,7 @@ public class MainMenuController : MonoBehaviour {
 	//play from the first level
 	public void Play ()
 	{
-		SceneManager.LoadScene ("Level1");
+		SceneManager.LoadScene (1);
 	}
 
 
