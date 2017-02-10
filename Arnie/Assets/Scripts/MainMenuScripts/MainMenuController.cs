@@ -42,6 +42,11 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 
+	public void loadLevel1(){SceneManager.LoadScene ("Level1");}
+	public void loadLevel2(){SceneManager.LoadScene ("Level2");}
+	public void loadLevel3(){SceneManager.LoadScene ("Level3");}
+
+
 
 
 
