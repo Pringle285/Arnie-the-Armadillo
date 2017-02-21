@@ -14,8 +14,6 @@ public class CameraFollowArnie : MonoBehaviour {
 
 	public Options m_optionsScript; 
 
-	//private Transform targetTrans = new Transform();
-
 	private float m_xRot;
 
 	void Start () 
