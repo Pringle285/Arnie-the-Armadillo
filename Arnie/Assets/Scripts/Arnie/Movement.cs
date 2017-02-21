@@ -54,8 +54,6 @@ public class Movement : MonoBehaviour {
 
 		Debug.DrawLine (this.transform.position, this.transform.position + rb.velocity, Color.red);
 
-		Debug.Log (rb.velocity);
-
 		if(!isRolling && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.Space)))
 		{
 			//Roll
@@ -90,9 +88,9 @@ public class Movement : MonoBehaviour {
 		{
 			//rb.AddTorque (new Vector3 (200, 0, 0));
 			if(isRollingForward)
-				rb.AddTorque (new Vector3 (500, 0, 0));
+				rb.AddTorque (new Vector3 (10000, 0, 0),ForceMode.Impulse);
 			else
-				rb.AddTorque (new Vector3 (-500, 0, 0));
+				rb.AddTorque (new Vector3 (-10000, 0, 0));
 		}
 	}
 	void StopRoll()
