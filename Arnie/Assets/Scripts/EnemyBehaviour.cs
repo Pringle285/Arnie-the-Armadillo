@@ -51,6 +51,7 @@ public class EnemyBehaviour : MonoBehaviour {
 		Searching,
 		ReturningToPatrol
 	};
+	[SerializeField]
 	private State m_state = State.Patrolling;
 
 	public enum PatrolType
@@ -106,6 +107,8 @@ public class EnemyBehaviour : MonoBehaviour {
 			{
 				m_searchTimeout = Random.Range (3.0f, 7.0f);
 				m_state = State.ReturningToPatrol;
+				AssignNearestPatrolNode ();
+				m_navMeshAgent.SetDestination (m_patrolArr [m_currentPatrolIndex].position);
 			}
 
 			if (PlayerInSight ()) 
@@ -126,12 +129,8 @@ public class EnemyBehaviour : MonoBehaviour {
 		case State.ReturningToPatrol:
 			if (PlayerInSight ())
 				m_state = State.Chasing;
-			else
-			{
-				//find nearest patrol point (if not already found)
-				//return to that point (nav-mesh or translation?)
-
-			}
+			else if (AtPatrolPoint (this.transform.position, m_patrolArr [m_currentPatrolIndex].position))
+				m_state = State.Patrolling;
 
 
 			break;
@@ -182,7 +181,8 @@ public class EnemyBehaviour : MonoBehaviour {
 			//Move to next point on list
 
 		if (m_searchList.Count == 0)
-			GenerateSearchPointList (m_lastPlayerPos, m_searchRadius, 5);
+			m_searchList = GenerateSearchPointList (m_lastPlayerPos, m_searchRadius, 5);
+		
 		if (m_searchList.Count > 0) 
 		{
 			if (AtPatrolPoint (this.transform.position, m_searchList [0]))
@@ -190,6 +190,11 @@ public class EnemyBehaviour : MonoBehaviour {
 
 			if (m_navMeshAgent.destination != m_searchList [0])
 				m_navMeshAgent.SetDestination (m_searchList [0]);
+		}
+		else
+		{
+			//Nowhere to search
+			Debug.Log("Search failed");
 		}
 	}
 	void SearchAir()
@@ -223,8 +228,7 @@ public class EnemyBehaviour : MonoBehaviour {
 			}
 
 		}
-
-
+			
 		bool isSaturated = false;
 		cumulativeAttempts = 0;
 
@@ -261,7 +265,7 @@ public class EnemyBehaviour : MonoBehaviour {
 			
 		return returnList;
 	}
-
+	//May not actually need, see how realistic it looks without ordering
 	void OrderSearchPointList(List<Vector3> _list, Vector3 _playerDir)
 	{
 		//Try and order based upon _playerDir as a heuristic
@@ -290,6 +294,24 @@ public class EnemyBehaviour : MonoBehaviour {
 		if (m_patrolArr.Length == 0)
 			Debug.LogError ("No Patrol Path Found Format:[This name]_Patrol");
 
+	}
+
+	void AssignNearestPatrolNode()
+	{
+		int nearestIndx = 0;
+		float nearestDist = float.MaxValue;
+
+		for (int i = 0; i < m_patrolArr.Length; i++)
+		{
+			float dist = Vector3.Distance (this.transform.position, m_patrolArr [i].position);
+			if(dist <= nearestDist)
+			{
+				nearestDist = dist;
+				nearestIndx = i;
+			}	
+		}
+
+		m_currentPatrolIndex = nearestIndx;
 	}
 
 	#region MovementMethods
