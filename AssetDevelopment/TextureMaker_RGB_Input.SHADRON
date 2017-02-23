@@ -93,6 +93,6 @@ glsl vec4 Col(vec2 pos)
 	
 image Test = glsl(Col, 4096, 4096);
 	
-	export png(Background, "shot.png");
+	//export png(Background, "shot.png");
 	export png_sequence(Background, "Sequence/test_?.png", 10, 2); //Exports image every 100ms for 2 seconds
 	

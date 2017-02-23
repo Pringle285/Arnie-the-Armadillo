@@ -1,0 +1,35 @@
+
+glsl vec3 hsv(float h, float s, float v) {
+    vec3 c = clamp(abs(6.0*fract(vec3(1.0, 0.666666666667, 0.333333333333)+h)-3.0)-1.0, 0.0, 1.0);
+    return v*mix(vec3(1.0), c, s);
+}
+
+glsl float hue(vec3 color) {
+    vec4 p = mix(vec4(color.bg, -1.0, 0.666666666667), vec4(color.gb, 0.0, -0.333333333333), step(color.b, color.g));
+    vec4 q = mix(vec4(p.xyw, color.r), vec4(color.r, p.yzx), step(p.x, color.r));
+    float d = q.x-min(q.w, q.y);
+    return abs(q.z+(q.w-q.y)/(6.0*d+1.0e-10));
+}
+
+glsl float value(vec3 color) {
+    return max(max(color.r, color.g), color.b);
+}
+
+glsl float saturation(vec3 color) {
+    float v = value(color);
+    if (v == 0.0)
+        return 0.0;
+    return 1.0-min(min(color.r, color.g), color.b)/v;
+}
+
+glsl float hue(vec4 color) {
+    return hue(color.rgb);
+}
+
+glsl float value(vec4 color) {
+    return value(color.rgb);
+}
+
+glsl float saturation(vec4 color) {
+    return saturation(color.rgb);
+}

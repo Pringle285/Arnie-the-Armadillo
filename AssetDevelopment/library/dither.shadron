@@ -1,0 +1,20 @@
+
+/** Returns an element of the Bayer matrix (of size 2^ORDER * 2^ORDER) normalized to the range (0.0, 1.0).
+ *  ORDER must be between 0 and 15. The suggested ORDER is 4 (16x16 Bayer matrix - 256 different values).
+ *  The pos argument does not need to be in bounds of the matrix - it will automatically wrap.
+ *  Uses bit operations - OpenGL 3 required (version 130 or higher).
+ *  Example usage: color += 0.00390625*(dither<4>(ivec2(gl_FragCoord.xy))-0.5);
+ *             or: color = step(dither<4>(ivec2(gl_FragCoord.xy)), color);
+ *  (c) Viktor Chlumsky 2016
+ */
+template <ORDER>
+glsl float dither(ivec2 pos) {
+    int value = 0;
+    for (int i = 0; i < int(ORDER); ++i) {
+        value <<= 2;
+        value |= ((pos.x^pos.y)&1)<<1|(pos.y&1);
+        pos.x >>= 1;
+        pos.y >>= 1;
+    }
+    return (float(value)+0.5)/float(1<<(2*int(ORDER)));
+}

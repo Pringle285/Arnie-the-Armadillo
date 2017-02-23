@@ -1,0 +1,102 @@
+
+// 2D coordinate transformations
+
+glsl vec2 scale(vec2 p, float s) {
+    return s*p;
+}
+
+glsl vec2 scale(vec2 p, vec2 s) {
+    return s*p;
+}
+
+glsl vec2 shear(vec2 p, vec2 k) {
+    return vec2(p.x+k.x*p.y, p.y+k.y*p.x);
+}
+
+glsl vec2 rotate(vec2 p, float a) {
+    return vec2(cos(a)*p.x-sin(a)*p.y, sin(a)*p.x+cos(a)*p.y);
+}
+
+glsl vec2 translate(vec2 p, vec2 t) {
+    return p+t;
+}
+
+
+// 3D coordinate transformations
+
+glsl vec3 scale(vec3 p, float s) {
+    return s*p;
+}
+
+glsl vec3 scale(vec3 p, vec3 s) {
+    return s*p;
+}
+
+glsl vec3 rotateX(vec3 p, float a) {
+    return vec3(
+        p.x,
+        cos(a)*p.y-sin(a)*p.z,
+        sin(a)*p.y+cos(a)*p.z
+    );
+}
+
+glsl vec3 rotateY(vec3 p, float a) {
+    return vec3(
+        cos(a)*p.x+sin(a)*p.z,
+        p.y,
+        -sin(a)*p.x+cos(a)*p.z
+    );
+}
+
+glsl vec3 rotateZ(vec3 p, float a) {
+    return vec3(
+        cos(a)*p.x-sin(a)*p.y,
+        sin(a)*p.x+cos(a)*p.y,
+        p.z
+    );
+}
+
+glsl vec3 rotate(vec3 p, vec3 axis, float a) {
+    vec3 u = normalize(axis);
+    mat3 uCross = mat3(
+        0.0, -u.z, u.y,
+        u.z, 0.0, -u.x,
+        -u.y, u.x, 0.0
+    );
+    mat3 uTensor = mat3(
+        u.x*u.x, u.x*u.y, u.x*u.z,
+        u.y*u.x, u.y*u.y, u.y*u.z,
+        u.z*u.x, u.z*u.y, u.z*u.z
+    );
+    mat3 matrix = cos(a)*mat3(1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0)+sin(a)*uCross+(1.0-cos(a))*uTensor;
+    return matrix*p;
+}
+
+glsl vec3 translate(vec3 p, vec3 t) {
+    return p+t;
+}
+
+
+// Projections
+
+glsl vec4 projectOrthographic(vec2 p, vec2 frame) {
+    return vec4(2.0*p/frame, 0.0, 1.0);
+}
+
+glsl vec4 projectOrthographic(vec3 p, vec2 frame, float near, float far) {
+    return vec4(2.0*p.xy/frame, (-2.0*p.z-(far+near))/(far-near), 1.0);
+}
+
+glsl vec4 projectPerspective(vec3 p, vec2 frame, float near, float far) {
+    return vec4(2.0*near*p.xy/frame, (-2.0*far*near-(far+near)*p.z)/(far-near), -p.z);
+}
+
+glsl vec4 projectPerspectiveHFOV(vec3 p, float aspect, float hFOV, float near, float far) {
+    float frameWidth = near*tan(0.5*hFOV);
+    return projectPerspective(p, vec2(frameWidth, frameWidth/aspect), near, far);
+}
+
+glsl vec4 projectPerspectiveHFOV(vec3 p, float hFOV, float near, float far) {
+    float aspect = shadron_PixelSize.y/shadron_PixelSize.x;
+    return projectPerspectiveHFOV(p, aspect, hFOV, near, far);
+}

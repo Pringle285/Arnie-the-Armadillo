@@ -1,0 +1,34 @@
+
+glsl bool printValue(float value, ivec2 position) {
+    int[25] numerals = int[25](
+        877, 877, 879, 1021, 0,
+        325, 0, 2, 1017, 0,
+        1917, 1916, 1918, 2045, 0,
+        881, 0, 2, 925, 0,
+        1021, 1007, 1007, 1021, 0
+    );
+    if (position.y < 0 || position.y > 4)
+        return false;
+    bool minus = value < 0.0;
+    value = abs(value);
+    if (position.x > 1) {
+        int place = (position.x-2)/5;
+        for (int i = 0; i <= place; ++i)
+            value = 10.0*fract(value);
+        int index = 5*position.y+(position.x-2)%5;
+        int number = int(value)%10;
+        return (numerals[index]&1<<number) != 0;
+    } else if (position.x < -1) {
+        int place = (-position.x-2)/5;
+        for (int i = 0; i < place; ++i) {
+            minus = minus && value >= 1.0;
+            value /= 10.0;
+        }
+        int index = 5*position.y+4-(-position.x-1)%5;
+        if (value < 1.0)
+            return minus && (numerals[index]&1024) != 0;
+        int number = int(clamp(mod(value, 10.0), 0.0, 9.0));
+        return (numerals[index]&1<<number) != 0;
+    }
+    return position == ivec2(0);
+}

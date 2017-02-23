@@ -1,0 +1,7 @@
+
+#define CROP_CENTER vec2(0.5, 0.5)
+
+template <IMAGE, OLD_SIZE, NEW_SIZE, ALIGN>
+glsl vec4 crop(vec2 pos) {
+    return texture(IMAGE, (pos*vec2(NEW_SIZE)+vec2(ALIGN)*vec2((OLD_SIZE)-(NEW_SIZE)))/vec2(OLD_SIZE));
+}

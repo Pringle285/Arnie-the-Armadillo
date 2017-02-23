@@ -1,0 +1,44 @@
+
+#define HEIGHTMAP_VERTEX_COUNT(COLS, ROWS) (6*(COLS)*(ROWS))
+
+template <COLS, ROWS>
+glsl ivec2 heightmapGridCoord(int i) {
+    int v[6] = int[6](0, 1, (COLS)+1, (COLS)+2, (COLS)+1, 1);
+    int row = i/(6*(COLS));
+    int base = i/6+row;
+    int j = base+v[i%6];
+    return ivec2(j%((COLS)+1), j/((COLS)+1));
+}
+
+template <FN, COLS, ROWS>
+glsl vec3 heightmapCoord(int i) {
+    vec2 coord = vec2(heightmapGridCoord<COLS, ROWS>(i))/vec2(COLS, ROWS);
+    float height = FN(coord);
+    return vec3(coord, height);
+}
+
+template <FN, COLS, ROWS>
+glsl vec3 heightmapNormal(int i) {
+    ivec2 gridCoord = heightmapGridCoord<COLS, ROWS>(i);
+    float height = FN(vec2(gridCoord)/vec2(COLS, ROWS));
+    float leftHeight = FN(vec2(gridCoord.x-1, gridCoord.y)/vec2(COLS, ROWS));
+    float rightHeight = FN(vec2(gridCoord.x+1, gridCoord.y)/vec2(COLS, ROWS));
+    float bottomHeight = FN(vec2(gridCoord.x, gridCoord.y-1)/vec2(COLS, ROWS));
+    float topHeight = FN(vec2(gridCoord.x, gridCoord.y+1)/vec2(COLS, ROWS));
+    vec3 direction = vec3(leftHeight-height, 0.0, 1.0/float(COLS))
+                    +vec3(height-rightHeight, 0.0, 1.0/float(COLS))
+                    +vec3(0.0, bottomHeight-height, 1.0/float(ROWS))
+                    +vec3(0.0, height-topHeight, 1.0/float(ROWS));
+    return normalize(direction);
+}
+
+template <FN, COLS, ROWS>
+glsl vec2 heightmapTexCoord(int i) {
+    vec2 coord = vec2(heightmapGridCoord<COLS, ROWS>(i))/vec2(COLS, ROWS);
+    return coord;
+}
+
+template <FN, COLS, ROWS>
+glsl vec4 heightmapVertex(int i) {
+    return vec4(2.0*heightmapCoord<FN, COLS, ROWS>(i)-vec3(1.0, 1.0, 0.0), 1.0);
+}

@@ -1,0 +1,29 @@
+
+template <FN, S>
+glsl vec4 multisample(vec2 pos) {
+    vec4 sum = vec4(0.0);
+    for (int ys = 0; ys < (S); ++ys)
+        for (int xs = 0; xs < (S); ++xs)
+            sum += FN(pos+shadron_PixelSize*vec2(float(2*xs-((S)-1)), float(2*ys-((S)-1)))/float(2*(S)));
+    return sum/float((S)*(S));
+}
+
+template <FN, S, TS>
+glsl vec4 multisampleAnimation(vec2 pos, float time) {
+    vec4 sum = vec4(0.0);
+    for (int ts = 0; ts < (TS); ++ts)
+        for (int ys = 0; ys < (S); ++ys)
+            for (int xs = 0; xs < (S); ++xs)
+                sum += FN(pos+shadron_PixelSize*vec2(float(2*xs-((S)-1)), float(2*ys-((S)-1)))/float(2*(S)), time-float(ts)/float(TS)*shadron_DeltaTime);
+    return sum/float((S)*(S)*(TS));
+}
+
+template <FN, S>
+glsl vec4 multisampleCubemap(vec3 dir) {
+    vec4 sum = vec4(0.0);
+    vec3 dDirdx = dFdx(dir), dDirdy = dFdy(dir);
+    for (int ys = 0; ys < (S); ++ys)
+        for (int xs = 0; xs < (S); ++xs)
+            sum += FN(dir+(float(2*xs-((S)-1))*dDirdx+float(2*ys-((S)-1))*dDirdy)/float(2*(S)));
+    return sum/float((S)*(S));
+}

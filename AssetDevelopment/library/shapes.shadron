@@ -1,0 +1,135 @@
+
+// SIGNED DISTANCE FROM SIMPLE SHAPES - positive values inside, negative outside
+
+glsl float lineDistance(vec2 pos, vec2 a, vec2 b, float thickness) {
+    thickness *= 0.5;
+    vec2 ab = b-a;
+    float t = dot(pos-a, ab)/dot(ab, ab);
+    if (t < 0.0)
+        return thickness-distance(pos, a);
+    if (t > 1.0)
+        return thickness-distance(pos, b);
+    return thickness-abs(dot(normalize(vec2(ab.y, -ab.x)), a-pos));
+}
+
+glsl float circleDistance(vec2 pos, vec2 center, float r) {
+    return r-distance(center, pos);
+}
+
+// Components of lt must be lower than rt
+glsl float rectangleDistance(vec2 pos, vec2 lb, vec2 rt) {
+    vec2 d = min(pos-lb, rt-pos);
+    return min(d.x, d.y);
+}
+
+glsl float halfPlaneDistance(vec2 pos, vec2 a, vec2 b) {
+    return dot(normalize(vec2(b.y-a.y, a.x-b.x)), a-pos);
+}
+
+// a, b, c must be in counter-clockwise order
+glsl float triangleDistance(vec2 pos, vec2 a, vec2 b, vec2 c) {
+    float abd = halfPlaneDistance(pos, a, b);
+    float bcd = halfPlaneDistance(pos, b, c);
+    float cad = halfPlaneDistance(pos, c, a);
+    return min(min(abd, bcd), cad);
+}
+
+// The N vertices must be in counter-clockwise order and form a convex polygon
+template <N>
+glsl float convexPolygonDistance(vec2 pos, vec2[N] vertices) {
+    float d = halfPlaneDistance(pos, vertices[(N)-1], vertices[0]);
+    for (int i = 0; i < (N)-1; ++i)
+        d = min(d, halfPlaneDistance(pos, vertices[i], vertices[i+1]));
+    return d;
+}
+
+// The N vertices must be in counter-clockwise order
+template <N>
+glsl float polygonDistance(vec2 pos, vec2[N] vertices) {
+    float d = -1.0e36;
+    float p = 0.0;
+    for (int i = 0; i < (N); ++i) {
+        vec2 rpos = pos-vertices[i];
+        vec2 edge = vertices[(i+1)%(N)]-vertices[i];
+        vec2 edgeNormal = normalize(vec2(-edge.y, edge.x));
+        float t = dot(rpos, edge)/dot(edge, edge);
+        vec2 pe = vertices[(i+int(t > 0.5))%(N)]-pos;
+        float peLen = length(pe);
+        float od = dot(edgeNormal, rpos);
+        float cd = (1.0-2.0*float(od < 0.0))*peLen;
+        float cp = abs(dot(edgeNormal, normalize(pe)));
+        if (t > 0.0 && t < 1.0 && abs(od) < peLen) {
+            cd = od;
+            cp = 1.0;
+        }
+        if (abs(cd) < abs(d) || (abs(cd) == abs(d) && cp > p)) {
+            d = cd;
+            p = cp;
+        }
+    }
+    return d;
+}
+
+// BINARY FILL OF SIMPLE SHAPES - returns 1.0 for pos inside the shape, 0.0 outside
+
+glsl float line(vec2 pos, vec2 a, vec2 b, float thickness) {
+    return step(0.0, lineDistance(pos, a, b, thickness));
+}
+
+glsl float circle(vec2 pos, vec2 center, float r) {
+    return step(0.0, circleDistance(pos, center, r));
+}
+
+glsl float rectangle(vec2 pos, vec2 lb, vec2 rt) {
+    return step(0.0, rectangleDistance(pos, lb, rt));
+}
+
+glsl float halfPlane(vec2 pos, vec2 a, vec2 b) {
+    return step(0.0, halfPlaneDistance(pos, a, b));
+}
+
+glsl float triangle(vec2 pos, vec2 a, vec2 b, vec2 c) {
+    return step(0.0, triangleDistance(pos, a, b, c));
+}
+
+template <N>
+glsl float convexPolygon(vec2 pos, vec2[N] vertices) {
+    return step(0.0, convexPolygonDistance<N>(pos, vertices));
+}
+
+template <N>
+glsl float polygon(vec2 pos, vec2[N] vertices) {
+    return step(0.0, polygonDistance<N>(pos, vertices));
+}
+
+// SMOOTH FILL OF SIMPLE SHAPES - returns 1.0 for pos inside the shape, 0.0 outside, and values in-between on its border
+
+glsl float lineSmooth(vec2 pos, vec2 a, vec2 b, float thickness, float border) {
+    return clamp(lineDistance(pos, a, b, thickness)/border+0.5, 0.0, 1.0);
+}
+
+glsl float circleSmooth(vec2 pos, vec2 center, float r, float border) {
+    return clamp(circleDistance(pos, center, r)/border+0.5, 0.0, 1.0);
+}
+
+glsl float rectangleSmooth(vec2 pos, vec2 lb, vec2 rt, float border) {
+    return clamp(rectangleDistance(pos, lb, rt)/border+0.5, 0.0, 1.0);
+}
+
+glsl float halfPlaneSmooth(vec2 pos, vec2 a, vec2 b, float border) {
+    return clamp(halfPlaneDistance(pos, a, b)/border+0.5, 0.0, 1.0);
+}
+
+glsl float triangleSmooth(vec2 pos, vec2 a, vec2 b, vec2 c, float border) {
+    return clamp(triangleDistance(pos, a, b, c)/border+0.5, 0.0, 1.0);
+}
+
+template <N>
+glsl float convexPolygonSmooth(vec2 pos, vec2[N] vertices, float border) {
+    return clamp(convexPolygonDistance<N>(pos, vertices)/border+0.5, 0.0, 1.0);
+}
+
+template <N>
+glsl float polygonSmooth(vec2 pos, vec2[N] vertices, float border) {
+    return clamp(polygonDistance<N>(pos, vertices)/border+0.5, 0.0, 1.0);
+}

@@ -1,0 +1,8 @@
+
+glsl float diffuseLight(vec3 lightDirection, vec3 normal) {
+    return max(0.0, -dot(lightDirection, normal));
+}
+
+glsl float specularLight(vec3 lightDirection, vec3 normal, vec3 cameraDirection, float exponent) {
+    return pow(max(0.0, dot(reflect(lightDirection, normal), cameraDirection)), exponent);
+}
