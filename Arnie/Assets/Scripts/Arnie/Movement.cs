@@ -21,11 +21,6 @@ public class Movement : MonoBehaviour {
 		m_normCollider = GetComponent<CapsuleCollider> ();
 		m_rollCollider = GetComponent<SphereCollider> ();
 
-		//This fixes a movement speed issues that shouldn't even exist
-		m_normCollider.enabled = false;
-		m_rollCollider.enabled = true;
-		m_rollCollider.enabled = false;
-		m_normCollider.enabled = true;
 	}
 
 	void FixedUpdate () 
