@@ -2049,6 +2049,7 @@ MonoBehaviour:
   m_maxAngleOfRotation: 25
   m_patrolRotationSpeed: 0.83
   m_isBird: 0
+  m_currentPatrolIndex: 0
   m_state: 0
   m_patrolType: 0
 --- !u!195 &1269716399
@@ -3278,6 +3279,7 @@ GameObject:
   - 92: {fileID: 2068307912}
   - 124: {fileID: 2068307911}
   - 81: {fileID: 2068307910}
+  - 135: {fileID: 2068307919}
   - 114: {fileID: 2068307915}
   - 114: {fileID: 2068307917}
   - 114: {fileID: 2068307916}
@@ -3415,6 +3417,18 @@ MonoBehaviour:
   shaderFXAAPreset3: {fileID: 4800000, guid: c182fa94a5a0a4c02870641efcd38cd5, type: 3}
   shaderFXAAII: {fileID: 4800000, guid: cd5b323dcc592457790ff18b528f5e67, type: 3}
   shaderFXAAIII: {fileID: 4800000, guid: c547503fff0e8482ea5793727057041c, type: 3}
+--- !u!135 &2068307919
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2068307909}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2096093431
 Prefab:
   m_ObjectHideFlags: 0

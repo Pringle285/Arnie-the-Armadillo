@@ -36,6 +36,7 @@ public class EnemyBehaviour : MonoBehaviour {
 
 	#region Patrol Data
 	private Transform[] m_patrolArr;
+	[SerializeField]
 	private int m_currentPatrolIndex = 0;
 
 	//Only used for ping-pong patroltype
@@ -109,6 +110,7 @@ public class EnemyBehaviour : MonoBehaviour {
 				m_state = State.ReturningToPatrol;
 				AssignNearestPatrolNode ();
 				m_navMeshAgent.SetDestination (m_patrolArr [m_currentPatrolIndex].position);
+				break;
 			}
 
 			if (PlayerInSight ()) 
@@ -132,6 +134,7 @@ public class EnemyBehaviour : MonoBehaviour {
 			else if (AtPatrolPoint (this.transform.position, m_patrolArr [m_currentPatrolIndex].position))
 				m_state = State.Patrolling;
 
+			Debug.Log ("Dest: " + m_navMeshAgent.destination);
 
 			break;
 
@@ -301,7 +304,7 @@ public class EnemyBehaviour : MonoBehaviour {
 		int nearestIndx = 0;
 		float nearestDist = float.MaxValue;
 
-		for (int i = 0; i < m_patrolArr.Length; i++)
+		for (int i = 0; i < m_patrolArr.Length - 1; i++)
 		{
 			float dist = Vector3.Distance (this.transform.position, m_patrolArr [i].position);
 			if(dist <= nearestDist)
@@ -310,7 +313,7 @@ public class EnemyBehaviour : MonoBehaviour {
 				nearestIndx = i;
 			}	
 		}
-
+		Debug.Log (nearestIndx);
 		m_currentPatrolIndex = nearestIndx;
 	}
 
