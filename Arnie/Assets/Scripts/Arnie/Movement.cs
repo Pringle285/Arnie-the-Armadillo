@@ -40,11 +40,11 @@ public class Movement : MonoBehaviour {
 		if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
 		{
 			//Up is forward right now, may need to change
-			rb.AddForce (this.transform.up * moveSpeed, ForceMode.Force);
+			rb.AddForce (this.transform.forward * moveSpeed, ForceMode.Force);
 		}
 		if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
 		{
-			rb.AddForce (-this.transform.up * (moveSpeed / 2), ForceMode.Force);
+			rb.AddForce (-this.transform.forward * (moveSpeed / 2), ForceMode.Force);
 		}
 
 		Debug.DrawLine (this.transform.position, this.transform.position + rb.velocity, Color.red);
