@@ -80,6 +80,7 @@ public class EnemyBehaviour : MonoBehaviour {
 		m_rb = this.gameObject.GetComponent<Rigidbody> ();
 
 		m_navMeshAgent = this.gameObject.GetComponent<NavMeshAgent> ();
+		AssignNearestPatrolNode ();
 	}
 
 	void FixedUpdate()
