@@ -3,12 +3,20 @@ using System.Collections;
 
 public class CameraAvoidCollision : MonoBehaviour {
 
-	void OnCollisionStay(Collision collisionInfo)
+	public Vector3 m_oldPos = new Vector3 ();
+
+	void Update()
 	{
-		Vector3 newPos = this.transform.position;
-		newPos = Vector3.Lerp (newPos, newPos + this.transform.up, Time.deltaTime);
-		this.transform.position = newPos;
-		Debug.Log ("BLAH");
+		m_oldPos = Camera.main.transform.position;	
+	}
+
+	void LateUpdate()
+	{
+		//get delta pos
+
+		//check for camera collision
+
+		//correct for it
 	}
 
 }

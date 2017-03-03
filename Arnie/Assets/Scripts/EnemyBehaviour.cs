@@ -135,7 +135,7 @@ public class EnemyBehaviour : MonoBehaviour {
 			else if (AtPatrolPoint (this.transform.position, m_patrolArr [m_currentPatrolIndex].position))
 				m_state = State.Patrolling;
 
-			Debug.Log ("Dest: " + m_navMeshAgent.destination);
+			//Debug.Log ("Dest: " + m_navMeshAgent.destination);
 
 			break;
 
@@ -314,7 +314,7 @@ public class EnemyBehaviour : MonoBehaviour {
 				nearestIndx = i;
 			}	
 		}
-		Debug.Log (nearestIndx);
+		//Debug.Log (nearestIndx);
 		m_currentPatrolIndex = nearestIndx;
 	}
 
