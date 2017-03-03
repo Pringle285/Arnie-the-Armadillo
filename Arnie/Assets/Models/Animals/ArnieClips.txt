@@ -1,0 +1,9 @@
+start_frame - end_frame = animName
+
+0 - 60 = start run
+60 - 300 = walk
+300 - 360 = end walk
+
+360 - 480 = start roll
+480 - 720 = roll
+750 - 1000 = end roll
