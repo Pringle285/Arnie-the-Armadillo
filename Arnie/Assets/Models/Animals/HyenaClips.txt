@@ -1,0 +1,4 @@
+start_frame - end_frame = animName
+
+0 - 240 = walk cycle
+260 - 380 = run cycle
