@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class EnemyBehaviour : MonoBehaviour {
 
+	public static bool s_pHidden;
+
 	private GameObject m_player;
 	private Rigidbody m_rb;
 	private NavMeshAgent m_navMeshAgent;
@@ -278,16 +280,16 @@ public class EnemyBehaviour : MonoBehaviour {
 	//Check if in player is in LOS
 	bool PlayerInSight()
 	{
-		if(Vector3.Angle(this.transform.forward, m_player.transform.position - this.transform.position) <= m_fov / 2)
+		if (!s_pHidden) 
 		{
-			RaycastHit hit;
-			if(Physics.Raycast(this.transform.position,m_player.transform.position - this.transform.position, out hit, m_sightDist))
-			{
-				if (hit.collider.name == m_player.name)
-					return true;
+			if (Vector3.Angle (this.transform.forward, m_player.transform.position - this.transform.position) <= m_fov / 2) {
+				RaycastHit hit;
+				if (Physics.Raycast (this.transform.position, m_player.transform.position - this.transform.position, out hit, m_sightDist)) {
+					if (hit.collider.name == m_player.name)
+						return true;
+				}
 			}
 		}
-
 		return false;
 	}
 
