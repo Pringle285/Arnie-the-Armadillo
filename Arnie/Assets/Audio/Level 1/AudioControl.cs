@@ -4,8 +4,15 @@ using UnityEngine.Audio;
 
 public class AudioControl : MonoBehaviour {
 
+	public static AudioControl c;
+
 	public AudioMixer m_mix;
 	public AudioSource m_spike;
+
+	void Awake()
+	{
+		c = this;
+	}
 
 	//TODO Remove update function, it's purely for testing
 	void Update()
