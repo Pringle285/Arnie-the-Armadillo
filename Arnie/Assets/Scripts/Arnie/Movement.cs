@@ -6,6 +6,7 @@ public class Movement : MonoBehaviour {
 	private Rigidbody rb;
 	private CapsuleCollider m_normCollider;
 	private SphereCollider m_rollCollider;
+	private Animator m_animator;
 
 	public float moveSpeed;
 	public float rotationSpeed; 
@@ -20,7 +21,7 @@ public class Movement : MonoBehaviour {
 		rb = GetComponent<Rigidbody>(); 
 		m_normCollider = GetComponent<CapsuleCollider> ();
 		m_rollCollider = GetComponent<SphereCollider> ();
-
+		m_animator = GetComponent<Animator> ();
 	}
 
 	void FixedUpdate () 
@@ -39,15 +40,22 @@ public class Movement : MonoBehaviour {
 
 		if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
 		{
+			m_animator.SetTrigger ("StartWalk");
 			//Up is forward right now, may need to change
 			rb.AddForce (this.transform.forward * moveSpeed, ForceMode.Force);
 		}
+		else if(rb.velocity.magnitude >= 0.5f)
+		{
+			m_animator.SetTrigger ("EndWalk");
+		}
+
 		if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
 		{
+			m_animator.SetTrigger ("StartWalk"); //TODO reverse the animation and save as new clip
 			rb.AddForce (-this.transform.forward * (moveSpeed / 2), ForceMode.Force);
 		}
 
-		Debug.DrawLine (this.transform.position, this.transform.position + rb.velocity, Color.red);
+		//Debug.DrawLine (this.transform.position, this.transform.position + rb.velocity, Color.red);
 
 		if(!isRolling && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.Space)))
 		{
@@ -58,6 +66,7 @@ public class Movement : MonoBehaviour {
 
 	void StartRoll()
 	{
+		m_animator.SetTrigger ("StartRoll");
 		//Change collider over
 		m_normCollider.enabled = false;
 		m_rollCollider.enabled = true;
@@ -90,6 +99,7 @@ public class Movement : MonoBehaviour {
 	}
 	void StopRoll()
 	{
+		m_animator.SetTrigger ("EndRoll");
 		//Change colliders over
 		m_rollCollider.enabled = false;
 		m_normCollider.enabled = true;

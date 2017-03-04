@@ -72,7 +72,12 @@ ModelImporter:
     400062: pCube1
     400064: Root
     4300000: pCube1
-    7400000: Take 001
+    7400000: Start Walk
+    7400002: Walk
+    7400004: End Walk
+    7400006: Start Roll
+    7400008: Roll
+    7400010: End Roll
     9500000: //RootNode
     13700000: pCube1
   materials:
@@ -95,11 +100,575 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Start Walk
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: imagePlane1
+        weight: 1
+      - path: imagePlane2
+        weight: 1
+      - path: pCube1
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/BackLeftLeg
+        weight: 1
+      - path: Root/BackLeftLeg/joint10
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11/joint12
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11/joint12/joint13
+        weight: 1
+      - path: Root/BackRightLeg
+        weight: 1
+      - path: Root/BackRightLeg/joint16
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17/joint18
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17/joint18/joint19
+        weight: 1
+      - path: Root/joint2
+        weight: 1
+      - path: Root/joint2/joint3
+        weight: 1
+      - path: Root/joint2/joint3/joint4
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21/joint22
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21/joint22/joint23
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27/joint28
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27/joint28/joint29
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck/joint8
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck/joint8/joint9
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 60
+      lastFrame: 300
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: imagePlane1
+        weight: 1
+      - path: imagePlane2
+        weight: 1
+      - path: pCube1
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/BackLeftLeg
+        weight: 1
+      - path: Root/BackLeftLeg/joint10
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11/joint12
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11/joint12/joint13
+        weight: 1
+      - path: Root/BackRightLeg
+        weight: 1
+      - path: Root/BackRightLeg/joint16
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17/joint18
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17/joint18/joint19
+        weight: 1
+      - path: Root/joint2
+        weight: 1
+      - path: Root/joint2/joint3
+        weight: 1
+      - path: Root/joint2/joint3/joint4
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21/joint22
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21/joint22/joint23
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27/joint28
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27/joint28/joint29
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck/joint8
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck/joint8/joint9
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: End Walk
+      takeName: Take 001
+      firstFrame: 300
+      lastFrame: 360
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: imagePlane1
+        weight: 1
+      - path: imagePlane2
+        weight: 1
+      - path: pCube1
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/BackLeftLeg
+        weight: 1
+      - path: Root/BackLeftLeg/joint10
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11/joint12
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11/joint12/joint13
+        weight: 1
+      - path: Root/BackRightLeg
+        weight: 1
+      - path: Root/BackRightLeg/joint16
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17/joint18
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17/joint18/joint19
+        weight: 1
+      - path: Root/joint2
+        weight: 1
+      - path: Root/joint2/joint3
+        weight: 1
+      - path: Root/joint2/joint3/joint4
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21/joint22
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21/joint22/joint23
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27/joint28
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27/joint28/joint29
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck/joint8
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck/joint8/joint9
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Start Roll
+      takeName: Take 001
+      firstFrame: 360
+      lastFrame: 480
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: imagePlane1
+        weight: 1
+      - path: imagePlane2
+        weight: 1
+      - path: pCube1
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/BackLeftLeg
+        weight: 1
+      - path: Root/BackLeftLeg/joint10
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11/joint12
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11/joint12/joint13
+        weight: 1
+      - path: Root/BackRightLeg
+        weight: 1
+      - path: Root/BackRightLeg/joint16
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17/joint18
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17/joint18/joint19
+        weight: 1
+      - path: Root/joint2
+        weight: 1
+      - path: Root/joint2/joint3
+        weight: 1
+      - path: Root/joint2/joint3/joint4
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21/joint22
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21/joint22/joint23
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27/joint28
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27/joint28/joint29
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck/joint8
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck/joint8/joint9
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Roll
+      takeName: Take 001
+      firstFrame: 480
+      lastFrame: 720
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: imagePlane1
+        weight: 1
+      - path: imagePlane2
+        weight: 1
+      - path: pCube1
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/BackLeftLeg
+        weight: 1
+      - path: Root/BackLeftLeg/joint10
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11/joint12
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11/joint12/joint13
+        weight: 1
+      - path: Root/BackRightLeg
+        weight: 1
+      - path: Root/BackRightLeg/joint16
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17/joint18
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17/joint18/joint19
+        weight: 1
+      - path: Root/joint2
+        weight: 1
+      - path: Root/joint2/joint3
+        weight: 1
+      - path: Root/joint2/joint3/joint4
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21/joint22
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21/joint22/joint23
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27/joint28
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27/joint28/joint29
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck/joint8
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck/joint8/joint9
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: End Roll
+      takeName: Take 001
+      firstFrame: 750
+      lastFrame: 1000
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: imagePlane1
+        weight: 1
+      - path: imagePlane2
+        weight: 1
+      - path: pCube1
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/BackLeftLeg
+        weight: 1
+      - path: Root/BackLeftLeg/joint10
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11/joint12
+        weight: 1
+      - path: Root/BackLeftLeg/joint10/joint11/joint12/joint13
+        weight: 1
+      - path: Root/BackRightLeg
+        weight: 1
+      - path: Root/BackRightLeg/joint16
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17/joint18
+        weight: 1
+      - path: Root/BackRightLeg/joint16/joint17/joint18/joint19
+        weight: 1
+      - path: Root/joint2
+        weight: 1
+      - path: Root/joint2/joint3
+        weight: 1
+      - path: Root/joint2/joint3/joint4
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21/joint22
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontLeftLeg/joint20/joint21/joint22/joint23
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27/joint28
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/FrontRightLeg/joint26/joint27/joint28/joint29
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck/joint8
+        weight: 1
+      - path: Root/joint2/joint3/joint4/joint5/joint6/Neck/joint8/joint9
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.075
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1

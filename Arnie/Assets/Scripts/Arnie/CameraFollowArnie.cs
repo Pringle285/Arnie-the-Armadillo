@@ -7,7 +7,7 @@ public class CameraFollowArnie : MonoBehaviour {
 
 	private GameObject m_cameraTarget;
 
-	private GameObject m_player;
+	public GameObject m_player;
 	private Vector3 m_lastPlayerPos;
 
 	private Vector3 m_tempVec = Vector3.zero;
@@ -19,7 +19,9 @@ public class CameraFollowArnie : MonoBehaviour {
 	void Start () 
 	{
 		m_cameraTarget = GameObject.Find ("CameraTarget");
-		m_player = GameObject.FindGameObjectWithTag ("Player");
+		//m_player = GameObject.FindGameObjectWithTag ("Player");
+
+		Debug.Log (m_player.name + " " + m_player.transform.position);
 
 		m_lastPlayerPos = m_player.transform.position;
 
@@ -69,7 +71,6 @@ public class CameraFollowArnie : MonoBehaviour {
 		this.transform.position = Vector3.SmoothDamp (this.transform.position, m_cameraTarget.transform.position, ref m_tempVec, 30.0f * Time.deltaTime);
 
 		m_lastPlayerPos = m_player.transform.position;
-
 	}
 
 	Vector3 GetCameraTarget()
@@ -116,12 +117,13 @@ public class CameraFollowArnie : MonoBehaviour {
 		else
 			m_cameraTarget.transform.RotateAround (m_player.transform.position, Vector3.up, _angle * Time.deltaTime );
 
-		
 	}
 
 	void OnDrawGizmos()
 	{
 		Gizmos.color = Color.magenta;
 		Gizmos.DrawWireSphere (this.transform.position, 0.5f);
+		if(m_player != null)
+			Gizmos.DrawLine (m_player.transform.position, m_player.transform.position + Vector3.up);
 	}
 }
