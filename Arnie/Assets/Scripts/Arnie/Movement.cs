@@ -143,11 +143,11 @@ public class Movement : MonoBehaviour {
 		if (m_animator.GetCurrentAnimatorStateInfo (0).IsName ("Idle") /* || collision */) 
 		{
 			m_isRolling = false;
-			if (Input.GetKeyDown (KeyCode.W))
-			{
+			if (Input.GetKey (KeyCode.W)) {
 				m_animator.SetTrigger ("StartWalk");
 				m_inpWalkF = true;
-			}
+			} else
+				m_inpWalkF = false;
 				
 		}
 
