@@ -4,48 +4,83 @@ using System.Collections;
 public class Movement : MonoBehaviour {
 
 	private Rigidbody rb;
-	private CapsuleCollider m_normCollider;
-	private SphereCollider m_rollCollider;
 	private Animator m_animator;
 
 	public float moveSpeed;
 	public float rotationSpeed; 
+	public float m_rollSpeed;
+
 	private float lockPosition = 0f;
 
-	private bool isRolling = false;
-	private bool isRollingForward = false;
-	private Vector3 initialRollRotation;
+	private bool m_isRolling = false;
+	private bool m_inpWalkF = false;
+	private bool m_inpWalkB = false;
 
 	void Start () 
 	{
 		rb = GetComponent<Rigidbody>(); 
-		m_normCollider = GetComponent<CapsuleCollider> ();
-		m_rollCollider = GetComponent<SphereCollider> ();
 		m_animator = GetComponent<Animator> ();
 	}
 
 	void FixedUpdate () 
 	{
-		if (isRolling)
+		if (m_isRolling)
 			ContinueRoll ();
 		else
 			HandleInput ();
 	}
-		
+
+	void Update()
+	{
+		if(Input.GetKeyDown(KeyCode.Space) && m_inpWalkF && !(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
+		{
+			m_animator.SetTrigger ("StartRoll");
+
+			StartRoll ();
+		}
+		else if (!m_isRolling)
+		{
+			if(!m_inpWalkF && !m_inpWalkB)
+			{
+				//Check for key down
+				if (Input.GetKeyDown (KeyCode.W)) 
+				{
+					m_animator.SetTrigger ("StartWalk");
+					m_inpWalkF = true;
+				}
+				else if (Input.GetKeyDown (KeyCode.S))
+					m_inpWalkB = true;
+			}
+			else
+			{
+				//Check for key up
+				if (Input.GetKeyUp (KeyCode.W))
+				{
+					if(m_animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+						m_animator.SetTrigger ("EndWalk");
+					m_inpWalkF = false;
+				}
+				else if (Input.GetKeyUp (KeyCode.S))
+					m_inpWalkB = false;
+			}
+		}
+	}
+
 	void HandleInput()
 	{
+		Debug.Log ("Stuff");
 		float rotationHorizontal = Input.GetAxis ("Horizontal");
 
 		transform.rotation = Quaternion.Euler (transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + (rotationHorizontal * rotationSpeed), lockPosition);
-
+		/*
 		if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
 		{
-			m_animator.SetTrigger ("StartWalk");
+			if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+				m_animator.SetTrigger ("StartWalk");
 			//Up is forward right now, may need to change
-			//rb.AddForce (this.transform.forward * moveSpeed, ForceMode.Force);
-			rb.AddForce(GetMoveDirVec() * moveSpeed, ForceMode.Force);
+			rb.AddForce (this.transform.forward * moveSpeed, ForceMode.Force);
 		}
-		else if(rb.velocity.magnitude >= 0.5f)
+		else if(Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow))
 		{
 			m_animator.SetTrigger ("EndWalk");
 		}
@@ -58,82 +93,44 @@ public class Movement : MonoBehaviour {
 
 		//Debug.DrawLine (this.transform.position, this.transform.position + rb.velocity, Color.red);
 
-		if(!isRolling && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.Space)))
+		if(!m_isRolling && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.Space)))
 		{
 			//Roll
 			StartRoll();
 		}
-	}
-	//Used to change direction of force to match terrain angles
-	Vector3 GetMoveDirVec()
-	{
-		Vector3 a = new Vector3 (), b = new Vector3 ();
-		Debug.DrawRay (this.transform.position, -this.transform.up, Color.red);
-		RaycastHit hit;
-		if (Physics.Raycast (this.transform.position, -Vector3.up, out hit, 2f))
-			a = hit.point;
-		else
-			return this.transform.forward;
+		*/
 
-		Debug.DrawRay (this.transform.position, this.transform.forward - this.transform.up, Color.red);
-		if (Physics.Raycast (this.transform.position, this.transform.forward - this.transform.up, out hit, 2f))
-			b = hit.point;
-		else
-			return this.transform.forward;
-
-		Debug.DrawRay (this.transform.position, -(a - b).normalized, Color.blue);
-		return -(a - b).normalized;
-
+		if(m_inpWalkF)
+		{
+			rb.AddForce(GetMoveDirVec() * moveSpeed, ForceMode.Force);
+		}
+		else if(m_inpWalkB)
+		{
+			rb.AddForce(-GetMoveDirVec() * moveSpeed * 0.5f, ForceMode.Force);
+		}
 	}
 
 	void StartRoll()
 	{
 		m_animator.SetTrigger ("StartRoll");
-		//Change collider over
-		m_normCollider.enabled = false;
-		m_rollCollider.enabled = true;
-		//change locked axis for RigidBody
-		rb.constraints &= ~RigidbodyConstraints.FreezeRotationX;
 
-		//trigger animation
-		if (transform.rotation.eulerAngles.y >= 90.0f && transform.rotation.eulerAngles.y <= 270.0f)
-			isRollingForward = false;
-		else
-			isRollingForward = true;
-
-		initialRollRotation = transform.rotation.eulerAngles;
-
-		isRolling = true;
+		m_isRolling = true;
 	}
 	void ContinueRoll()
 	{
-		//animation ended || collided ? stop roll : maybe apply more torque
-		if (Input.GetKey (KeyCode.T)) //Debug
-			StopRoll ();
-		else
+		if (m_animator.GetCurrentAnimatorStateInfo (0).IsName ("Idle") /* || collision */) 
 		{
-			//rb.AddTorque (new Vector3 (200, 0, 0));
-			if(isRollingForward)
-				rb.AddTorque (new Vector3 (10000, 0, 0),ForceMode.Impulse);
-			else
-				rb.AddTorque (new Vector3 (-10000, 0, 0));
+			m_isRolling = false;
+			if (Input.GetKeyDown (KeyCode.W))
+			{
+				m_animator.SetTrigger ("StartWalk");
+				m_inpWalkF = true;
+			}
+				
 		}
-	}
-	void StopRoll()
-	{
-		m_animator.SetTrigger ("EndRoll");
-		//Change colliders over
-		m_rollCollider.enabled = false;
-		m_normCollider.enabled = true;
-		//Change locked axis
-		rb.constraints |= RigidbodyConstraints.FreezeRotationX;
-		//Reseting rotation
-		transform.rotation = Quaternion.Euler (initialRollRotation);
 
-		rb.AddForce (-rb.velocity, ForceMode.VelocityChange);
-
-
-		isRolling = false;
+		//Apply increased force in same way as movement
+		rb.AddForce(GetMoveDirVec() * moveSpeed * m_rollSpeed, ForceMode.Force);
 	}
 
 }
