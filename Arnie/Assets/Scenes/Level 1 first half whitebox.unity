@@ -4641,7 +4641,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1500600769}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1891587613}
+        m_MethodName: LevelSelect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1500600769
@@ -4896,6 +4907,34 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 3acc4cfa38667184195b70bd4347a4e4, type: 3}
   m_PrefabInternal: {fileID: 1560387325}
+--- !u!1 &1560387327 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: 3acc4cfa38667184195b70bd4347a4e4, type: 3}
+  m_PrefabInternal: {fileID: 1560387325}
+--- !u!65 &1560387328
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1560387327}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.22661741, y: 0.19121782, z: 0.21913326}
+  m_Center: {x: 0.00994069, y: 0.08782943, z: 0.036980785}
+--- !u!114 &1560387332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1560387327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a248cccbda1f73e41a5f2e8db8a5762f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelCompletePanel: {fileID: 1891587610}
 --- !u!1 &1610153925
 GameObject:
   m_ObjectHideFlags: 0
@@ -5703,6 +5742,7 @@ GameObject:
   - 224: {fileID: 1891587610}
   - 222: {fileID: 1891587612}
   - 114: {fileID: 1891587611}
+  - 114: {fileID: 1891587613}
   m_Layer: 5
   m_Name: LevelCompleted
   m_TagString: Untagged
@@ -5763,6 +5803,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1891587609}
+--- !u!114 &1891587613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1891587609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606d5fa6e3d09c649b8b7a9ea473860d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1921201957 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
