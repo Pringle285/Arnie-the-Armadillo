@@ -303,8 +303,7 @@ public class EnemyBehaviour : MonoBehaviour {
 				if (Physics.Raycast (this.transform.position, m_player.transform.position - this.transform.position, out hit, m_sightDist)) {
 					if (hit.collider.name == m_player.name)
 					{
-						if(!m_isBird)
-							m_animController.SetTrigger ("Run");
+						m_animController.SetTrigger ("Run");
 						
 						return true;
 					}
