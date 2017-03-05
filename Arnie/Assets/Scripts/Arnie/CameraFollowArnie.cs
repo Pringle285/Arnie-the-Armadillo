@@ -21,7 +21,7 @@ public class CameraFollowArnie : MonoBehaviour {
 		m_cameraTarget = GameObject.Find ("CameraTarget");
 		//m_player = GameObject.FindGameObjectWithTag ("Player");
 
-		Debug.Log (m_player.name + " " + m_player.transform.position);
+		//Debug.Log (m_player.name + " " + m_player.transform.position);
 
 		m_lastPlayerPos = m_player.transform.position;
 
@@ -29,7 +29,7 @@ public class CameraFollowArnie : MonoBehaviour {
 			m_optionsScript = GameObject.Find("OptionsController").GetComponent<Options> ();
 
 		m_cameraTarget.transform.position = this.transform.position;
-		Debug.Log (m_cameraTarget.transform.position);
+		//Debug.Log (m_cameraTarget.transform.position);
 		Cursor.lockState = CursorLockMode.Confined;
 		#if UNITY_EDITOR
 			Cursor.visible = true;
@@ -105,7 +105,7 @@ public class CameraFollowArnie : MonoBehaviour {
 		RaycastHit hit;
 		//if(Physics.Raycast(oldLoc, -(oldLoc - this.transform.position), out hit, Vector3.Distance(oldLoc, this.transform.position)))
 		Ray r = new Ray(oldLoc, -(oldLoc - this.transform.position));
-		Debug.DrawRay (r.origin, r.direction, Color.black, 1f, false);
+		//Debug.DrawRay (r.origin, r.direction, Color.black, 1f, false);
 		if(Physics.SphereCast(r, 0.5f, out hit, Vector3.Distance(oldLoc, this.transform.position)))
 		{
 			this.transform.position = oldLoc;
