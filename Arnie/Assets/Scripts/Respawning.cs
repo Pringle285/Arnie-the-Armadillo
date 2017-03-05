@@ -10,6 +10,8 @@ public class Respawning : MonoBehaviour {
 	float m_sec = 3; 
 	GameObject m_Start, m_Checkpoint; 
 
+	public static bool m_isDead = false; 
+
 	void Start()
 	{
 		m_Start = GameObject.FindWithTag ("Start"); 
@@ -17,6 +19,10 @@ public class Respawning : MonoBehaviour {
 		r = this;
 	}
 
+	void Update()
+	{
+		Death ();
+	}
 
 	void OnTriggerEnter (Collider other)
 	{
@@ -37,21 +43,26 @@ public class Respawning : MonoBehaviour {
 		
 	public void Death()
 	{
-		m_DeathPanel.gameObject.SetActive (true);
-
-		if (Input.GetKeyDown (KeyCode.R))
+		if (m_isDead == true)
 		{
-			if (m_CheckpointReached == false)
+			m_DeathPanel.gameObject.SetActive (true);
+			Debug.Log ("death function");
+			Time.timeScale = 0;
+			if (Input.GetKeyDown (KeyCode.R))
 			{
-				this.gameObject.transform.position = m_Start.transform.position; 
+				Debug.Log ("r pressed");
+				if (m_CheckpointReached == false)
+				{
+					this.gameObject.transform.position = m_Start.transform.position; 
+				}
+				else if (m_CheckpointReached == true)
+				{
+					this.gameObject.transform.position = m_Checkpoint.transform.position; 
+				}
+				m_DeathPanel.gameObject.SetActive (false);
+				m_isDead = false; 
+				Time.timeScale = 1;
 			}
-			else if (m_CheckpointReached == true)
-			{
-				this.gameObject.transform.position = m_Checkpoint.transform.position; 
-			}
-			m_DeathPanel.gameObject.SetActive (false);
 		}
 	}
-
-
 }

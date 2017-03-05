@@ -131,7 +131,7 @@ public class Movement : MonoBehaviour {
 	{
 		if(other.gameObject.tag == "Enemy")
 		{
-			Respawning.r.Death();
+			Respawning.m_isDead = true;
 		}
 	}
 
