@@ -120,7 +120,8 @@ public class EnemyBehaviour : MonoBehaviour {
 				m_searchTimeout = Random.Range (3.0f, 7.0f);
 				m_state = State.ReturningToPatrol;
 				AssignNearestPatrolNode ();
-				m_navMeshAgent.SetDestination (m_patrolArr [m_currentPatrolIndex].position);
+				if(!m_isBird)
+					m_navMeshAgent.SetDestination (m_patrolArr [m_currentPatrolIndex].position);
 				break;
 			}
 
@@ -302,7 +303,9 @@ public class EnemyBehaviour : MonoBehaviour {
 				if (Physics.Raycast (this.transform.position, m_player.transform.position - this.transform.position, out hit, m_sightDist)) {
 					if (hit.collider.name == m_player.name)
 					{
-						m_animController.SetTrigger ("Run");
+						if(!m_isBird)
+							m_animController.SetTrigger ("Run");
+						
 						return true;
 					}
 				}
@@ -341,25 +344,24 @@ public class EnemyBehaviour : MonoBehaviour {
 	#region MovementMethods
 	void ChasePlayer()
 	{
-		//Limits Pathing to every 5th frame
-		if(Time.frameCount % 5 == 0)
-			m_navMeshAgent.SetDestination (m_player.transform.position);
+		if (!m_isBird) 
+		{
+			//Limits Pathing to every 5th frame
+			if (Time.frameCount % 5 == 0)
+				m_navMeshAgent.SetDestination (m_player.transform.position);
+		}
+		else
+		{
+			PushTo (m_player.transform.position, m_chaseSpeed);
+			m_rb.MoveRotation (Quaternion.FromToRotation (this.transform.forward, -(m_player.transform.position - this.transform.position)));
+		}
 	}
 	//Not used
 	void PushTo(Vector3 _target, float _speed)
 	{
-
-		m_rb.AddForce ((_target - this.transform.position).normalized * _speed);
-		print ("Yep");
+		m_rb.AddForce ((_target - this.transform.position).normalized * _speed, ForceMode.Force);
 	}
-	//Not used
-	void TranslateTowards(Vector3 _target, float _speed, bool _isLookingTowards)
-	{
-		if (_isLookingTowards)
-			this.transform.rotation = Quaternion.LookRotation (_target - this.transform.position);
 
-		this.transform.position = Vector3.MoveTowards (this.transform.position, _target, _speed * Time.deltaTime);
-	}
     #endregion
 
 	#region PatrolMethods
@@ -374,9 +376,19 @@ public class EnemyBehaviour : MonoBehaviour {
 				m_currentPatrolIndex++;
 		}
 
-		//Move to patrol point
-		if(m_navMeshAgent.destination != m_patrolArr[m_currentPatrolIndex].position)
-			m_navMeshAgent.SetDestination(m_patrolArr[m_currentPatrolIndex].position);
+		//Hack for bird patroling without nav-mesh (only circular is used)
+		if (m_isBird) 
+		{
+			PushTo (m_patrolArr [m_currentPatrolIndex].position, m_patrolSpeed);
+			this.transform.LookAt (m_patrolArr [m_currentPatrolIndex].position);
+		}
+		else 
+		{
+
+			//Move to patrol point
+			if (m_navMeshAgent.destination != m_patrolArr [m_currentPatrolIndex].position)
+				m_navMeshAgent.SetDestination (m_patrolArr [m_currentPatrolIndex].position);
+		}
 
 	}
 	void PatrolPingPong()
@@ -408,10 +420,20 @@ public class EnemyBehaviour : MonoBehaviour {
 
 	bool AtPatrolPoint(Vector3 _a, Vector3 _b)
 	{
-		if (Vector2.Distance (new Vector2 (_a.x, _a.z), new Vector2 (_b.x, _b.z)) < MIN_PATROL_DIST)
-			return true;
+		if(!m_isBird)
+		{
+			if (Vector2.Distance (new Vector2 (_a.x, _a.z), new Vector2 (_b.x, _b.z)) < MIN_PATROL_DIST)
+				return true;
+			else
+				return false;
+		}
 		else
-			return false;
+		{
+			if (Vector2.Distance (new Vector2 (_a.x, _a.z), new Vector2 (_b.x, _b.z)) < MIN_PATROL_DIST * 100f) //Account for poor level scale
+				return true;
+			else
+				return false;
+		}
 	}
 	#endregion
 

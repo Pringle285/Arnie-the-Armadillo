@@ -9,6 +9,7 @@ public class FlockToLeader : MonoBehaviour
 
 	private Rigidbody m_rb;
 
+	private List<Vector3> m_gizmoList = new List<Vector3>();
 
 
 	void Start()
@@ -22,6 +23,7 @@ public class FlockToLeader : MonoBehaviour
 		//Initialise with tendency to leader
 		Vector3 resultForce = (m_leader.transform.position - this.transform.position).normalized;
 
+		m_gizmoList.Clear ();
 
 		if (Vector3.Distance (this.transform.position, m_leader.transform.position) <= m_leader.m_maxDistFromLeader) 
 		{
@@ -33,6 +35,8 @@ public class FlockToLeader : MonoBehaviour
 			{
 				if (otherF != this)
 				{
+					m_gizmoList.Add (otherF.transform.position);
+
 					flockInRange++;
 					//Avoidance
 					resultForce += ForceFromFlock (otherF);
@@ -44,10 +48,12 @@ public class FlockToLeader : MonoBehaviour
 
 			//Cohesion
 			resultHeading /= flockInRange;
-			m_rb.MoveRotation (Quaternion.FromToRotation (this.transform.forward, resultHeading.normalized));
+			//m_rb.MoveRotation (Quaternion.FromToRotation (this.transform.forward, resultHeading.normalized));
+			this.transform.forward = resultHeading;
 
 			//Accounting for position
 			resultPos /= flockInRange;
+
 			resultForce += (this.transform.position - resultPos).normalized;
 
 		}
@@ -69,11 +75,28 @@ public class FlockToLeader : MonoBehaviour
 			if(dist <= m_leader.m_avoidDist)
 			{
 				//Avoid
-				return (_otherF.transform.position - this.transform.position).normalized;
+				return (this.transform.position - _otherF.transform.position).normalized * 2f; //Multiplied to give extra weight to avoidance
 			}
 		}
 		//No need for avoidance
 		return Vector3.zero;
 	}
 
+	void OnDrawGizmos()
+	{
+		
+
+		foreach (Vector3 to in m_gizmoList) 
+		{
+			if(Vector3.Distance(this.transform.position, to) <= m_leader.m_avoidDist)
+				Gizmos.color = Color.red;
+			else
+				Gizmos.color = Color.green;
+
+			Gizmos.DrawLine (this.transform.position, to);
+		}
+
+		//Gizmos.DrawWireSphere (this.transform.position, m_leader.m_avoidDist);
+
+	}
 }

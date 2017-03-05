@@ -20,4 +20,11 @@ public class FlockLeader : MonoBehaviour
 		}
 	}
 
+	void OnDrawGizmos()
+	{
+		Gizmos.color = Color.blue;
+
+		Gizmos.DrawWireSphere (this.transform.position, m_maxDistFromLeader);
+	}
+
 }
