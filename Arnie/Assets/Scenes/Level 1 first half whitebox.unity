@@ -487,6 +487,10 @@ Prefab:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
+      propertyPath: m_TagString
+      value: HidingSpot
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
   m_IsPrefabParent: 0
@@ -544,6 +548,10 @@ Prefab:
     - target: {fileID: 100000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
+      propertyPath: m_TagString
+      value: HidingSpot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
@@ -630,6 +638,10 @@ Prefab:
     - target: {fileID: 100000, guid: a4506d8d74aff944692f2e513630c1af, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: a4506d8d74aff944692f2e513630c1af, type: 3}
+      propertyPath: m_TagString
+      value: HidingSpot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a4506d8d74aff944692f2e513630c1af, type: 3}
@@ -1678,6 +1690,10 @@ Prefab:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
+      propertyPath: m_TagString
+      value: HidingSpot
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
   m_IsPrefabParent: 0
@@ -1887,6 +1903,10 @@ Prefab:
     - target: {fileID: 100000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
+      propertyPath: m_TagString
+      value: HidingSpot
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
@@ -2713,6 +2733,10 @@ Prefab:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
+      propertyPath: m_TagString
+      value: HidingSpot
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
@@ -3052,6 +3076,10 @@ Prefab:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
+      propertyPath: m_TagString
+      value: HidingSpot
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
@@ -3146,6 +3174,10 @@ Prefab:
     - target: {fileID: 100000, guid: a4506d8d74aff944692f2e513630c1af, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: a4506d8d74aff944692f2e513630c1af, type: 3}
+      propertyPath: m_TagString
+      value: HidingSpot
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: a4506d8d74aff944692f2e513630c1af, type: 3}
@@ -3566,6 +3598,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 136578, guid: 9f0ba9c6c538c0e4bb3a23265436aa67, type: 2}
+      propertyPath: m_TagString
+      value: HidingSpot
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9f0ba9c6c538c0e4bb3a23265436aa67, type: 2}
   m_IsPrefabParent: 0
@@ -3946,6 +3982,10 @@ Prefab:
     - target: {fileID: 100000, guid: a4506d8d74aff944692f2e513630c1af, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: a4506d8d74aff944692f2e513630c1af, type: 3}
+      propertyPath: m_TagString
+      value: HidingSpot
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: a4506d8d74aff944692f2e513630c1af, type: 3}
@@ -4711,6 +4751,10 @@ Prefab:
     - target: {fileID: 100000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
+      propertyPath: m_TagString
+      value: HidingSpot
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9500000, guid: b192d417cf6552b4abe4aafac5eb8ccf, type: 3}
@@ -5847,6 +5891,10 @@ Prefab:
     - target: {fileID: 100000, guid: a4506d8d74aff944692f2e513630c1af, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: a4506d8d74aff944692f2e513630c1af, type: 3}
+      propertyPath: m_TagString
+      value: HidingSpot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a4506d8d74aff944692f2e513630c1af, type: 3}
