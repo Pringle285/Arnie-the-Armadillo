@@ -69,7 +69,6 @@ public class Movement : MonoBehaviour {
 
 	void HandleInput()
 	{
-		Debug.Log ("Stuff");
 		float rotationHorizontal = Input.GetAxis ("Horizontal");
 
 		transform.rotation = Quaternion.Euler (transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + (rotationHorizontal * rotationSpeed), lockPosition);

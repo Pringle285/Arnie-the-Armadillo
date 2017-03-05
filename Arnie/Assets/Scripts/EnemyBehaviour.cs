@@ -9,6 +9,7 @@ public class EnemyBehaviour : MonoBehaviour {
 	private GameObject m_player;
 	private Rigidbody m_rb;
 	private NavMeshAgent m_navMeshAgent;
+	private Animator m_animController;
 
 	// Used for more accurate time measuring, incrementing by deltaTime each frame
 	//Unity doesn't provide any other accurate alternative in ms
@@ -83,6 +84,8 @@ public class EnemyBehaviour : MonoBehaviour {
 
 		m_navMeshAgent = this.gameObject.GetComponent<NavMeshAgent> ();
 		AssignNearestPatrolNode ();
+
+		m_animController = this.gameObject.GetComponent<Animator> ();
 	}
 
 	void FixedUpdate()
@@ -92,8 +95,11 @@ public class EnemyBehaviour : MonoBehaviour {
 		switch (m_state)
 		{
 		case State.Chasing:
-			if (!PlayerInSight ())
+			if (!PlayerInSight ()) 
+			{
+				m_animController.SetTrigger ("Walk");
 				m_state = State.Searching;
+			}
 			else
 			{
 				m_lastPlayerPos = m_player.transform.position;
@@ -286,7 +292,10 @@ public class EnemyBehaviour : MonoBehaviour {
 				RaycastHit hit;
 				if (Physics.Raycast (this.transform.position, m_player.transform.position - this.transform.position, out hit, m_sightDist)) {
 					if (hit.collider.name == m_player.name)
+					{
+						m_animController.SetTrigger ("Run");
 						return true;
+					}
 				}
 			}
 		}
