@@ -218,6 +218,8 @@ ModelImporter:
     100420: Trees
     100422: Trees1
     100424: Water
+    100426: Floor1
+    100428: Outline
     400000: Floor
     400002: group1
     400004: group1 1
@@ -431,18 +433,26 @@ ModelImporter:
     400420: Trees
     400422: Trees1
     400424: Water
+    400426: Floor1
+    400428: Outline
     2300000: Floor
     2300002: rock_ring1
     2300004: Trees1
     2300006: Water
+    2300008: Floor1
+    2300010: Outline
     3300000: Floor
     3300002: rock_ring1
     3300004: Trees1
     3300006: Water
+    3300008: Floor1
+    3300010: Outline
     4300000: Floor
     4300002: Water
     4300004: rock_ring1
     4300006: Trees1
+    4300008: Floor1
+    4300010: Outline
     9500000: //RootNode
   materials:
     importMaterials: 1
