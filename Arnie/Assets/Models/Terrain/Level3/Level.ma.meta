@@ -10,20 +10,35 @@ ModelImporter:
     100004: pPlane1_MeshPart0
     100006: pPlane1_MeshPart1
     100008: pPlane2
+    100010: Land
+    100012: land_around
+    100014: water
     400000: //RootNode
     400002: pPlane1
     400004: pPlane1_MeshPart0
     400006: pPlane1_MeshPart1
     400008: pPlane2
+    400010: Land
+    400012: land_around
+    400014: water
     2300000: pPlane1_MeshPart0
     2300002: pPlane1_MeshPart1
     2300004: pPlane2
+    2300006: Land
+    2300008: land_around
+    2300010: water
     3300000: pPlane1_MeshPart0
     3300002: pPlane1_MeshPart1
     3300004: pPlane2
+    3300006: Land
+    3300008: land_around
+    3300010: water
     4300000: pPlane1_MeshPart0
     4300002: pPlane1_MeshPart1
     4300004: pPlane2
+    4300006: Land
+    4300008: water
+    4300010: land_around
     9500000: //RootNode
   materials:
     importMaterials: 1
