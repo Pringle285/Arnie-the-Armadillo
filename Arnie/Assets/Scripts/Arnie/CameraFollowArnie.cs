@@ -47,9 +47,11 @@ public class CameraFollowArnie : MonoBehaviour {
 		//RotateAroundArnie (Input.GetAxis ("Mouse X") * 250f);
 		//rotation using menu slider sensitivity
 		#if UNITY_EDITOR
-			RotateAroundArnie(Input.GetAxis("Mouse X") * 200f);
+			RotateAroundArnieH(Input.GetAxis("Mouse X") * 200f);
+			//RotateAroundArnieV(Input.GetAxis("Mouse Y") * 200f);
 		#else
-			RotateAroundArnie (Input.GetAxis ("Mouse X") * m_optionsScript.m_sensitivity.value);
+			RotateAroundArnieH (Input.GetAxis ("Mouse X") * m_optionsScript.m_sensitivity.value);
+			//RotateAroundArnieV (Input.GetAxis ("Mouse Y") * m_optionsScript.m_sensitivity.value);
 		#endif
 	}
 
@@ -89,7 +91,7 @@ public class CameraFollowArnie : MonoBehaviour {
 	}
 
 	//Effected by delta time
-	void RotateAroundArnie(float _angle)
+	void RotateAroundArnieH(float _angle)
 	{
 		//store transforms locally 
 		//rotate local var
@@ -118,7 +120,30 @@ public class CameraFollowArnie : MonoBehaviour {
 			m_cameraTarget.transform.RotateAround (m_player.transform.position, Vector3.up, _angle * Time.deltaTime );
 
 	}
+	/* Broken AF
+	void RotateAroundArnieV(float _angle)
+	{
+		Vector3 oldLoc = new Vector3 ();
+		oldLoc = this.transform.position;
 
+		this.transform.RotateAround (m_player.transform.position, Vector3.forward, _angle * Time.deltaTime);
+
+		RaycastHit hit;
+		//if(Physics.Raycast(oldLoc, -(oldLoc - this.transform.position), out hit, Vector3.Distance(oldLoc, this.transform.position)))
+		Ray r = new Ray(oldLoc, -(oldLoc - this.transform.position));
+		//Debug.DrawRay (r.origin, r.direction, Color.black, 1f, false);
+		if(Physics.SphereCast(r, 0.5f, out hit, Vector3.Distance(oldLoc, this.transform.position)))
+		{
+			this.transform.position = oldLoc;
+			float angle = Vector3.Angle(this.transform.position - m_player.transform.position, hit.point - m_player.transform.position);
+
+			this.transform.RotateAround (m_player.transform.position, Vector3.forward, angle * Time.deltaTime);
+			m_cameraTarget.transform.RotateAround (m_player.transform.position, Vector3.forward, angle * Time.deltaTime);
+		}
+		else
+			m_cameraTarget.transform.RotateAround (m_player.transform.position, Vector3.forward, _angle * Time.deltaTime );
+	}
+	*/
 	void OnDrawGizmos()
 	{
 		Gizmos.color = Color.magenta;
