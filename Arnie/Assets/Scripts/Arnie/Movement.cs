@@ -155,4 +155,14 @@ public class Movement : MonoBehaviour {
 		rb.AddForce(GetMoveDirVec() * moveSpeed * m_rollSpeed, ForceMode.Force);
 	}
 
+	void OnCollisionEnter(Collision other)
+	{
+		Debug.Log ("Thing");
+		if(other.gameObject.tag == "Enemy")
+		{
+			Debug.Log ("Other Thing");
+			Respawning.r.Death();
+		}
+	}
+
 }

@@ -68,8 +68,6 @@ public class CameraFollowArnie : MonoBehaviour {
 
 		m_cameraTarget.transform.position += deltaPos;
 
-		//this.transform.position = Vector3.SmoothDamp (this.transform.position, GetCameraTarget(), ref m_tempVec, 30.0f * Time.deltaTime);
-
 		this.transform.position = Vector3.SmoothDamp (this.transform.position, m_cameraTarget.transform.position, ref m_tempVec, 30.0f * Time.deltaTime);
 
 		m_lastPlayerPos = m_player.transform.position;
@@ -104,11 +102,10 @@ public class CameraFollowArnie : MonoBehaviour {
 
 		this.transform.RotateAround (m_player.transform.position, Vector3.up, _angle * Time.deltaTime);
 
-		RaycastHit hit;
-		//if(Physics.Raycast(oldLoc, -(oldLoc - this.transform.position), out hit, Vector3.Distance(oldLoc, this.transform.position)))
+		RaycastHit hit = new RaycastHit();
 		Ray r = new Ray(oldLoc, -(oldLoc - this.transform.position));
-		//Debug.DrawRay (r.origin, r.direction, Color.black, 1f, false);
-		if(Physics.SphereCast(r, 0.5f, out hit, Vector3.Distance(oldLoc, this.transform.position)))
+
+		if(Physics.SphereCast(r, 0.5f, out hit, Vector3.Distance(oldLoc, this.transform.position)) && hit.collider.tag != "HidingSpot")
 		{
 			this.transform.position = oldLoc;
 			float angle = Vector3.Angle(this.transform.position - m_player.transform.position, hit.point - m_player.transform.position);
@@ -120,30 +117,15 @@ public class CameraFollowArnie : MonoBehaviour {
 			m_cameraTarget.transform.RotateAround (m_player.transform.position, Vector3.up, _angle * Time.deltaTime );
 
 	}
-	/* Broken AF
-	void RotateAroundArnieV(float _angle)
+
+	void OnCollisionEnter(Collision other)
 	{
-		Vector3 oldLoc = new Vector3 ();
-		oldLoc = this.transform.position;
-
-		this.transform.RotateAround (m_player.transform.position, Vector3.forward, _angle * Time.deltaTime);
-
-		RaycastHit hit;
-		//if(Physics.Raycast(oldLoc, -(oldLoc - this.transform.position), out hit, Vector3.Distance(oldLoc, this.transform.position)))
-		Ray r = new Ray(oldLoc, -(oldLoc - this.transform.position));
-		//Debug.DrawRay (r.origin, r.direction, Color.black, 1f, false);
-		if(Physics.SphereCast(r, 0.5f, out hit, Vector3.Distance(oldLoc, this.transform.position)))
+		if(other.gameObject.tag == "Enemy")
 		{
-			this.transform.position = oldLoc;
-			float angle = Vector3.Angle(this.transform.position - m_player.transform.position, hit.point - m_player.transform.position);
-
-			this.transform.RotateAround (m_player.transform.position, Vector3.forward, angle * Time.deltaTime);
-			m_cameraTarget.transform.RotateAround (m_player.transform.position, Vector3.forward, angle * Time.deltaTime);
+			Respawning.m_isDead = true;
 		}
-		else
-			m_cameraTarget.transform.RotateAround (m_player.transform.position, Vector3.forward, _angle * Time.deltaTime );
 	}
-	*/
+
 	void OnDrawGizmos()
 	{
 		Gizmos.color = Color.magenta;
