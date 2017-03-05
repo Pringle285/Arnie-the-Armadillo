@@ -97,6 +97,7 @@ public class EnemyBehaviour : MonoBehaviour {
 		case State.Chasing:
 			if (!PlayerInSight ()) 
 			{
+				AudioControl.c.TransitionToChase ();
 				m_animController.SetTrigger ("Walk");
 				m_state = State.Searching;
 			}
@@ -115,6 +116,7 @@ public class EnemyBehaviour : MonoBehaviour {
 			m_searchTimeout -= Time.deltaTime;
 			if(m_searchTimeout <= 0.0f)
 			{
+				AudioControl.c.TransitionToCalm ();
 				m_searchTimeout = Random.Range (3.0f, 7.0f);
 				m_state = State.ReturningToPatrol;
 				AssignNearestPatrolNode ();
@@ -124,6 +126,7 @@ public class EnemyBehaviour : MonoBehaviour {
 
 			if (PlayerInSight ()) 
 			{
+				AudioControl.c.TransitionToChase ();
 				m_searchTimeout = Random.Range (3.0f, 7.0f);
 				m_state = State.Chasing;
 			}
@@ -138,8 +141,11 @@ public class EnemyBehaviour : MonoBehaviour {
 			break;
 
 		case State.ReturningToPatrol:
-			if (PlayerInSight ())
+			if (PlayerInSight ()) 
+			{
+				AudioControl.c.TransitionToChase ();
 				m_state = State.Chasing;
+			}
 			else if (AtPatrolPoint (this.transform.position, m_patrolArr [m_currentPatrolIndex].position))
 				m_state = State.Patrolling;
 
@@ -150,7 +156,10 @@ public class EnemyBehaviour : MonoBehaviour {
 		case State.Patrolling:
 
 			if (PlayerInSight ())
+			{
+				AudioControl.c.TransitionToChase ();
 				m_state = State.Chasing;
+			}
 			else
 			{
 				switch(m_patrolType)
