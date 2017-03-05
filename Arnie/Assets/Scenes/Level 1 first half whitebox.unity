@@ -2063,6 +2063,10 @@ Prefab:
       propertyPath: m_TagString
       value: Checkpoint
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 3acc4cfa38667184195b70bd4347a4e4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3178d6d43d4af334fa2503a02dacb918, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3acc4cfa38667184195b70bd4347a4e4, type: 3}
   m_IsPrefabParent: 0
@@ -4137,6 +4141,10 @@ Prefab:
       propertyPath: m_TagString
       value: Start
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 3acc4cfa38667184195b70bd4347a4e4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3178d6d43d4af334fa2503a02dacb918, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3acc4cfa38667184195b70bd4347a4e4, type: 3}
   m_IsPrefabParent: 0
@@ -5008,6 +5016,10 @@ Prefab:
       propertyPath: m_TagString
       value: LevelEnd
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 3acc4cfa38667184195b70bd4347a4e4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3178d6d43d4af334fa2503a02dacb918, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3acc4cfa38667184195b70bd4347a4e4, type: 3}
   m_IsPrefabParent: 0
@@ -6576,6 +6588,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_mix: {fileID: 24100000, guid: b85f1012d7b73c2428161ffee7e08838, type: 2}
   m_spike: {fileID: 2068307922}
+  m_chase: 0
 --- !u!82 &2068307922
 AudioSource:
   m_ObjectHideFlags: 0
