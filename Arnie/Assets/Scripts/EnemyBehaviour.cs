@@ -279,8 +279,8 @@ public class EnemyBehaviour : MonoBehaviour {
 				} else
 					cumulativeAttempts++;
 			}
-
-			if (cumulativeAttempts == 30) //TODO tune this value
+			//Arbritary attempt number
+			if (cumulativeAttempts == 30)
 				isSaturated = true;
 
 		}

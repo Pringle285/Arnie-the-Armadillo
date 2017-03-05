@@ -13,8 +13,8 @@ public class Movement : MonoBehaviour {
 	private float lockPosition = 0f;
 
 	private bool m_isRolling = false;
-	private bool m_inpWalkF = false;
-	private bool m_inpWalkB = false;
+	private bool m_inpF = false;
+	private bool m_inpB = false;
 
 	void Start () 
 	{
@@ -33,7 +33,7 @@ public class Movement : MonoBehaviour {
 
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Space) && m_inpWalkF && !(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
+		if(Input.GetKeyDown(KeyCode.Space) && m_inpF && !(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
 		{
 			m_animator.SetTrigger ("StartRoll");
 
@@ -41,28 +41,28 @@ public class Movement : MonoBehaviour {
 		}
 		else if (!m_isRolling)
 		{
-			if(!m_inpWalkF && !m_inpWalkB)
+			if(!m_inpF && !m_inpB)
 			{
 				//Check for key down
 				if (Input.GetKeyDown (KeyCode.W)) 
 				{
-					m_animator.SetTrigger ("StartWalk");
-					m_inpWalkF = true;
+					m_animator.SetTrigger ("Start");
+					m_inpF = true;
 				}
 				else if (Input.GetKeyDown (KeyCode.S))
-					m_inpWalkB = true;
+					m_inpB = true;
 			}
 			else
 			{
 				//Check for key up
 				if (Input.GetKeyUp (KeyCode.W))
 				{
-					if(m_animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
-						m_animator.SetTrigger ("EndWalk");
-					m_inpWalkF = false;
+					if(m_animator.GetCurrentAnimatorStateInfo(0).IsName(""))
+						m_animator.SetTrigger ("End");
+					m_inpF = false;
 				}
 				else if (Input.GetKeyUp (KeyCode.S))
-					m_inpWalkB = false;
+					m_inpB = false;
 			}
 		}
 	}
@@ -72,40 +72,12 @@ public class Movement : MonoBehaviour {
 		float rotationHorizontal = Input.GetAxis ("Horizontal");
 
 		transform.rotation = Quaternion.Euler (transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + (rotationHorizontal * rotationSpeed), lockPosition);
-		/*
-		if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
-		{
-			if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-				m_animator.SetTrigger ("StartWalk");
-			//Up is forward right now, may need to change
-			//rb.AddForce (this.transform.forward * moveSpeed, ForceMode.Force);
-			rb.AddForce(GetMoveDirVec() * moveSpeed, ForceMode.Force);
-		}
-		else if(Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.UpArrow))
-		{
-			m_animator.SetTrigger ("EndWalk");
-		}
 
-		if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
-		{
-			m_animator.SetTrigger ("StartWalk"); //TODO reverse the animation and save as new clip
-			rb.AddForce (-this.transform.forward * (moveSpeed / 2), ForceMode.Force);
-		}
-
-		//Debug.DrawLine (this.transform.position, this.transform.position + rb.velocity, Color.red);
-
-		if(!m_isRolling && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.Space)))
-		{
-			//Roll
-			StartRoll();
-		}
-		*/
-
-		if(m_inpWalkF)
+		if(m_inpF)
 		{
 			rb.AddForce(GetMoveDirVec() * moveSpeed, ForceMode.Force);
 		}
-		else if(m_inpWalkB)
+		else if(m_inpB)
 		{
 			rb.AddForce(-GetMoveDirVec() * moveSpeed * 0.5f, ForceMode.Force);
 		}
@@ -144,10 +116,10 @@ public class Movement : MonoBehaviour {
 		{
 			m_isRolling = false;
 			if (Input.GetKey (KeyCode.W)) {
-				m_animator.SetTrigger ("StartWalk");
-				m_inpWalkF = true;
+				m_animator.SetTrigger ("Start");
+				m_inpF = true;
 			} else
-				m_inpWalkF = false;
+				m_inpF = false;
 				
 		}
 

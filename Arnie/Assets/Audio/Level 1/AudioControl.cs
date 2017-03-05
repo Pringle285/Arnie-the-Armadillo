@@ -33,7 +33,7 @@ public class AudioControl : MonoBehaviour {
 		if (m_chase)
 		{
 			m_chase = false;
-			m_mix.FindSnapshot ("Calm").TransitionTo (1f); //TODO time will need editing
+			m_mix.FindSnapshot ("Calm").TransitionTo (1f);
 		}
 	}
 }

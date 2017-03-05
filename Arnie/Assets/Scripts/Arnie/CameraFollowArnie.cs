@@ -118,14 +118,6 @@ public class CameraFollowArnie : MonoBehaviour {
 
 	}
 
-	void OnCollisionEnter(Collision other)
-	{
-		if(other.gameObject.tag == "Enemy")
-		{
-			Respawning.m_isDead = true;
-		}
-	}
-
 	void OnDrawGizmos()
 	{
 		Gizmos.color = Color.magenta;

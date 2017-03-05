@@ -10,8 +10,6 @@ public class Respawning : MonoBehaviour {
 	float m_sec = 3; 
 	GameObject m_Start, m_Checkpoint; 
 
-	public static bool m_isDead; 
-
 	void Start()
 	{
 		m_Start = GameObject.FindWithTag ("Start"); 
