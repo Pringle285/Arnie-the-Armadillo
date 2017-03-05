@@ -414,4 +414,11 @@ public class EnemyBehaviour : MonoBehaviour {
 			return false;
 	}
 	#endregion
+
+	void OnDrawGizmos()
+	{
+		Gizmos.color = Color.red;
+		if(m_state == State.Chasing)
+			Gizmos.DrawLine (this.transform.position, m_player.transform.position);
+	}
 }
