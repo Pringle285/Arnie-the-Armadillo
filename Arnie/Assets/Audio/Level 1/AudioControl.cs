@@ -13,16 +13,7 @@ public class AudioControl : MonoBehaviour {
 
 	void Awake()
 	{
-		c = this;
-	}
-
-	//TODO Remove update function, it's purely for testing
-	void Update()
-	{
-		if (Input.GetKey (KeyCode.J))
-			TransitionToChase ();
-		else if (Input.GetKey (KeyCode.K))
-			TransitionToCalm ();
+		c = this; //Allows static reference to this script, as there will only be one instance
 	}
 
 	public void TransitionToChase()
