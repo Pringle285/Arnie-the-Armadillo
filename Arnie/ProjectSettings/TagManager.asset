@@ -8,6 +8,7 @@ TagManager:
   - LevelEnd
   - HidingSpot
   - Start
+  - Enemy
   layers:
   - Default
   - TransparentFX
