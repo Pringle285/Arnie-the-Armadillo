@@ -200,7 +200,7 @@ public class EnemyBehaviour : MonoBehaviour {
 			if (AtPatrolPoint (this.transform.position, m_searchList [0]))
 				m_searchList.RemoveAt (0);
 
-			if (m_navMeshAgent.destination != m_searchList [0])
+			if (m_searchList.Count > 0 && m_navMeshAgent.destination != m_searchList [0])
 				m_navMeshAgent.SetDestination (m_searchList [0]);
 		}
 		else
