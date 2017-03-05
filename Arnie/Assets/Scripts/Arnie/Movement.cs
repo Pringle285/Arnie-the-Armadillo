@@ -159,7 +159,6 @@ public class Movement : MonoBehaviour {
 	{
 		if(other.gameObject.tag == "Enemy")
 		{
-			Debug.Log ("Other Thing");
 			Respawning.r.Death();
 		}
 	}
