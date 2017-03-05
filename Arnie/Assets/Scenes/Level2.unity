@@ -1986,15 +1986,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8adc7aba37b00434d9b5a9393c39219f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5172559
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8adc7aba37b00434d9b5a9393c39219f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5172558
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8adc7aba37b00434d9b5a9393c39219f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5172558
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8adc7aba37b00434d9b5a9393c39219f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -3097,6 +3097,22 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 7bcc7a53b3a90ce4e8ee17cf97f8ae14, type: 3}
   m_PrefabInternal: {fileID: 1324904052}
+--- !u!1 &1369835496 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100426, guid: 874e93e9c71de8642976f111f0ceca4f, type: 3}
+  m_PrefabInternal: {fileID: 914012402}
+--- !u!64 &1369835500
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1369835496}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 4300008, guid: 874e93e9c71de8642976f111f0ceca4f, type: 3}
 --- !u!1001 &1383230960
 Prefab:
   m_ObjectHideFlags: 0
@@ -3985,22 +4001,6 @@ CapsuleCollider:
   m_Height: 2.02299
   m_Direction: 1
   m_Center: {x: 0.02, y: 0, z: -0.37}
---- !u!1 &1752423783 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100000, guid: 874e93e9c71de8642976f111f0ceca4f, type: 3}
-  m_PrefabInternal: {fileID: 914012402}
---- !u!64 &1752423785
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1752423783}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 874e93e9c71de8642976f111f0ceca4f, type: 3}
 --- !u!1 &1767242344 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 188634, guid: 05c6c69b3d8092747b91b09de06d6364, type: 2}
