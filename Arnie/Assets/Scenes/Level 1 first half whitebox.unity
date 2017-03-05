@@ -2329,8 +2329,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e56472cbcf1114d8775e94945a0285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CheckpointPanel: {fileID: 0}
-  m_DeathPanel: {fileID: 0}
+  m_CheckpointPanel: {fileID: 401272970}
+  m_DeathPanel: {fileID: 2026441875}
 --- !u!1 &650191923 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: fe88e157ae1259b42a43bed11a3974af, type: 3}
@@ -6576,6 +6576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_mix: {fileID: 24100000, guid: b85f1012d7b73c2428161ffee7e08838, type: 2}
   m_spike: {fileID: 2068307922}
+  m_chase: 0
 --- !u!82 &2068307922
 AudioSource:
   m_ObjectHideFlags: 0
