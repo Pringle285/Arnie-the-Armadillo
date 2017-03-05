@@ -20,6 +20,7 @@ public class Movement : MonoBehaviour {
 	{
 		rb = GetComponent<Rigidbody>(); 
 		m_animator = GetComponent<Animator> ();
+		Time.timeScale = 1;
 	}
 
 	void FixedUpdate () 

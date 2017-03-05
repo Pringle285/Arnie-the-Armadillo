@@ -4979,7 +4979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a248cccbda1f73e41a5f2e8db8a5762f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LevelCompletePanel: {fileID: 0}
+  m_LevelCompletePanel: {fileID: 1891587610}
 --- !u!1 &1610153925
 GameObject:
   m_ObjectHideFlags: 0
