@@ -13,7 +13,7 @@ public class SpotCheck : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.tag == "HidingSpot")
+		if(other.tag == "HidingSpot" || other.tag == "Start" || other.tag == "Checkpoint" || other.tag == "LevelEnd")
 		{
 			EnemyBehaviour.s_pHidden = false;
 		}
