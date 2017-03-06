@@ -99,7 +99,10 @@ public class EnemyBehaviour : MonoBehaviour {
 			{
 				AudioControl.c.TransitionToChase ();
 				m_animController.SetTrigger ("Walk");
-				m_state = State.Searching;
+				if (!m_isBird)
+					m_state = State.Searching;
+				else
+					m_state = State.ReturningToPatrol;
 			}
 			else
 			{
@@ -110,8 +113,6 @@ public class EnemyBehaviour : MonoBehaviour {
 			break;
 
 		case State.Searching:
-
-			//Fuck knows, this could be super complex or super simple moving to random valid positions - need input from you guys!
 
 			m_searchTimeout -= Time.deltaTime;
 			if(m_searchTimeout <= 0.0f)
@@ -142,13 +143,13 @@ public class EnemyBehaviour : MonoBehaviour {
 			break;
 
 		case State.ReturningToPatrol:
-			if (PlayerInSight ()) 
-			{
+			if (PlayerInSight ()) {
 				AudioControl.c.TransitionToChase ();
 				m_state = State.Chasing;
-			}
-			else if (AtPatrolPoint (this.transform.position, m_patrolArr [m_currentPatrolIndex].position))
+			} else if (AtPatrolPoint (this.transform.position, m_patrolArr [m_currentPatrolIndex].position))
 				m_state = State.Patrolling;
+			else if (m_isBird)
+				PushTo (m_patrolArr [m_currentPatrolIndex].position, m_patrolSpeed);
 
 			//Debug.Log ("Dest: " + m_navMeshAgent.destination);
 
@@ -352,7 +353,8 @@ public class EnemyBehaviour : MonoBehaviour {
 		else
 		{
 			PushTo (m_player.transform.position, m_chaseSpeed);
-			m_rb.MoveRotation (Quaternion.FromToRotation (this.transform.forward, -(m_player.transform.position - this.transform.position)));
+			//m_rb.MoveRotation (Quaternion.FromToRotation (this.transform.forward, -(m_player.transform.position - this.transform.position)));
+			this.transform.LookAt(m_player.transform);
 		}
 	}
 	//Not used

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class FlockToLeader : MonoBehaviour 
 {
+	public GameObject m_leaderInput;
 	public FlockLeader m_leader;
 	public float m_forceScale;
 
@@ -14,6 +15,10 @@ public class FlockToLeader : MonoBehaviour
 
 	void Start()
 	{
+		if (m_leader == null && m_leaderInput != null)
+			m_leader = m_leaderInput.GetComponent<FlockLeader> ();
+			
+
 		m_leader.m_flock.Add (this);
 		m_rb = this.gameObject.GetComponent<Rigidbody> ();
 	}
