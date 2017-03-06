@@ -1945,6 +1945,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CheckpointPanel: {fileID: 401272970}
   m_DeathPanel: {fileID: 2026441875}
+--- !u!114 &629554352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 629554344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 114ba590649387142a2ecbdded90d360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_paused: 0
 --- !u!1 &650191923 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: fe88e157ae1259b42a43bed11a3974af, type: 3}
