@@ -6,6 +6,11 @@ public class MainMenuController : MonoBehaviour {
 
 	public Transform m_mainMenu, m_optionsMenu, m_levelSelectMenu; 
 
+	void Awake()
+	{
+		Cursor.lockState = CursorLockMode.Confined;
+	}
+
 	//panel changing function
 	public void ChangePanel(Transform panel1, Transform panel2, bool clicked)
 	{
