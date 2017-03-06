@@ -40,7 +40,7 @@ public class CameraFollowArnie : MonoBehaviour {
 		//	Cursor.lockState = CursorLockMode.None;
 		//#else
 			Cursor.visible = true;
-			Cursor.lockState = CursorLockMode.None;
+		Cursor.lockState = CursorLockMode.Confined;
 		//#endif
 	}
 
