@@ -16,6 +16,8 @@ public class CameraFollowArnie : MonoBehaviour {
 
 	private float m_xRot;
 
+	private Vector3 m_oldPos = new Vector3();
+
 	void Start () 
 	{
 		m_cameraTarget = GameObject.Find ("CameraTarget");
@@ -25,12 +27,12 @@ public class CameraFollowArnie : MonoBehaviour {
 
 		m_lastPlayerPos = m_player.transform.position;
 
-		if(m_optionsScript != null)
+		if(m_optionsScript == null)
 			m_optionsScript = GameObject.Find("OptionsController").GetComponent<Options> ();
 
 		m_cameraTarget.transform.position = this.transform.position;
 		//Debug.Log (m_cameraTarget.transform.position);
-
+		m_oldPos = Input.mousePosition;
 
 		//Cursor.lockState = CursorLockMode.Confined;
 		//#if UNITY_EDITOR
@@ -52,7 +54,11 @@ public class CameraFollowArnie : MonoBehaviour {
 		//	RotateAroundArnieH(Input.GetAxis("Mouse X") * 200f);
 		//	//RotateAroundArnieV(Input.GetAxis("Mouse Y") * 200f);
 		//#else
-			RotateAroundArnieH (Input.GetAxis ("Mouse X") * m_optionsScript.m_sensitivity.value);
+		//RotateAroundArnieH (((Input.mousePosition - m_oldPos).normalized).x * 250f);
+
+		RotateAroundArnieH (((Input.mousePosition - m_oldPos).normalized).x * m_optionsScript.m_sensitivity.value);
+
+		m_oldPos = Input.mousePosition;
 			//RotateAroundArnieV (Input.GetAxis ("Mouse Y") * m_optionsScript.m_sensitivity.value);
 		//#endif
 	}
