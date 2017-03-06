@@ -27,7 +27,6 @@ public class FlockToLeader : MonoBehaviour
 
 		if (Vector3.Distance (this.transform.position, m_leader.transform.position) <= m_leader.m_maxDistFromLeader) 
 		{
-			Vector3 resultHeading = this.transform.forward;
 			Vector3 resultPos = this.transform.position;
 			int flockInRange = 0;
 
@@ -41,15 +40,11 @@ public class FlockToLeader : MonoBehaviour
 					//Avoidance
 					resultForce += ForceFromFlock (otherF);
 					//Other two
-					resultHeading += otherF.transform.forward;
 					resultPos += otherF.transform.position;
 				}	
 			}
-
-			//Cohesion
-			resultHeading /= flockInRange;
-			//m_rb.MoveRotation (Quaternion.FromToRotation (this.transform.forward, resultHeading.normalized));
-			this.transform.forward = resultHeading;
+				
+			this.transform.forward = m_leader.transform.forward;
 
 			//Accounting for position
 			resultPos /= flockInRange;

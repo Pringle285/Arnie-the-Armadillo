@@ -46,7 +46,7 @@ public class Movement : MonoBehaviour {
 				//Check for key down
 				if (Input.GetKeyDown (KeyCode.W)) 
 				{
-					m_animator.SetTrigger ("Start");
+					m_animator.SetTrigger ("StartWalk");
 					m_inpF = true;
 				}
 				else if (Input.GetKeyDown (KeyCode.S))
@@ -57,8 +57,8 @@ public class Movement : MonoBehaviour {
 				//Check for key up
 				if (Input.GetKeyUp (KeyCode.W))
 				{
-					if(m_animator.GetCurrentAnimatorStateInfo(0).IsName(""))
-						m_animator.SetTrigger ("End");
+					if(m_animator.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+						m_animator.SetTrigger ("EndWalk");
 					m_inpF = false;
 				}
 				else if (Input.GetKeyUp (KeyCode.S))
@@ -86,20 +86,17 @@ public class Movement : MonoBehaviour {
 	Vector3 GetMoveDirVec()
 	{
 		Vector3 a = new Vector3 (), b = new Vector3 ();
-		Debug.DrawRay (this.transform.position, -this.transform.up, Color.red);
 		RaycastHit hit;
 		if (Physics.Raycast (this.transform.position, -Vector3.up, out hit, 2f))
 			a = hit.point;
 		else
 			return this.transform.forward;
 
-		Debug.DrawRay (this.transform.position, this.transform.forward - this.transform.up, Color.red);
 		if (Physics.Raycast (this.transform.position, this.transform.forward - this.transform.up, out hit, 2f))
 			b = hit.point;
 		else
 			return this.transform.forward;
 
-		Debug.DrawRay (this.transform.position, -(a - b).normalized, Color.blue);
 		return -(a - b).normalized;
 
 	}
@@ -116,7 +113,7 @@ public class Movement : MonoBehaviour {
 		{
 			m_isRolling = false;
 			if (Input.GetKey (KeyCode.W)) {
-				m_animator.SetTrigger ("Start");
+				m_animator.SetTrigger ("StartWalk");
 				m_inpF = true;
 			} else
 				m_inpF = false;
