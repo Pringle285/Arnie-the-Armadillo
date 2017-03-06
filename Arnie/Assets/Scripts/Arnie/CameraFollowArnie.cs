@@ -30,14 +30,16 @@ public class CameraFollowArnie : MonoBehaviour {
 
 		m_cameraTarget.transform.position = this.transform.position;
 		//Debug.Log (m_cameraTarget.transform.position);
-		Cursor.lockState = CursorLockMode.Confined;
-		#if UNITY_EDITOR
+
+
+		//Cursor.lockState = CursorLockMode.Confined;
+		//#if UNITY_EDITOR
+		//	Cursor.visible = true;
+		//	Cursor.lockState = CursorLockMode.None;
+		//#else
 			Cursor.visible = true;
 			Cursor.lockState = CursorLockMode.None;
-		#else
-			Cursor.visible = true;
-			Cursor.lockState = CursorLockMode.None;
-		#endif
+		//#endif
 	}
 
 	void FixedUpdate()
@@ -46,13 +48,13 @@ public class CameraFollowArnie : MonoBehaviour {
 		//Menu could super easily include a sensitivity slider in options
 		//RotateAroundArnie (Input.GetAxis ("Mouse X") * 250f);
 		//rotation using menu slider sensitivity
-		#if UNITY_EDITOR
-			RotateAroundArnieH(Input.GetAxis("Mouse X") * 200f);
-			//RotateAroundArnieV(Input.GetAxis("Mouse Y") * 200f);
-		#else
+		//#if UNITY_EDITOR
+		//	RotateAroundArnieH(Input.GetAxis("Mouse X") * 200f);
+		//	//RotateAroundArnieV(Input.GetAxis("Mouse Y") * 200f);
+		//#else
 			RotateAroundArnieH (Input.GetAxis ("Mouse X") * m_optionsScript.m_sensitivity.value);
 			//RotateAroundArnieV (Input.GetAxis ("Mouse Y") * m_optionsScript.m_sensitivity.value);
-		#endif
+		//#endif
 	}
 
 	void LateUpdate ()
