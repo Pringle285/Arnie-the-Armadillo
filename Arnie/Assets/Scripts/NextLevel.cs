@@ -9,7 +9,7 @@ public class NextLevel : MonoBehaviour {
 
 	void OnTriggerEnter (Collider other)
 	{
-		Cursor.visible = true; 
+		//Cursor.visible = true; 
 		m_LevelCompletePanel.gameObject.SetActive (true);
 		Time.timeScale = 0; 
 	}
